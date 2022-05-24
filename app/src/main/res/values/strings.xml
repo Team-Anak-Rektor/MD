@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BangkitCapstoneProject</string>
+    <string name="title_activity_based">BasedActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_food_detector">Food Detector</string>
+    <string name="title_profile">Profile</string>
 </resources>

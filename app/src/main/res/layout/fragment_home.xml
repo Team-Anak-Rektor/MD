@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.home.HomeFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <LinearLayout
+                android:id="@+id/title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="118dp"
+                android:layout_gravity="top">
+
+                <ImageView
+                    android:id="@+id/image_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_home" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingTop="18dp"
+                    android:text="FIND HEALTHY FOODS"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:text="around you"
+                    android:textSize="16sp"
+                    android:textStyle="normal"/>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="118dp"
+                android:layout_gravity="top"
+                app:layout_collapseMode="pin"/>
+
+            <LinearLayout
+                android:id="@+id/searchbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:layout_gravity="bottom">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <SearchView
+                        android:id="@+id/search_view"
+                        android:layout_width="305dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/bg_button_stroke"
+                        android:queryBackground="@android:color/transparent"
+                        android:searchIcon="@null"
+                        android:iconifiedByDefault="false"
+                        android:queryHint="Search restaurant..." />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_search"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_button_filled"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="12dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:minHeight="33dp"
+                        android:minWidth="75dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/bg_button_filled"
+                        android:textAllCaps="false"
+                        android:text="Filter"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="6dp"
+                                android:paddingHorizontal="12dp"
+                                android:minHeight="33dp"
+                                android:minWidth="60dp"
+                                android:background="@drawable/bg_button_stroke"
+                                android:textAllCaps="false"
+                                android:text="All"
+                                android:textStyle="bold"
+                                android:textColor="@color/my_green"/>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="6dp"
+                                android:paddingHorizontal="12dp"
+                                android:minHeight="33dp"
+                                android:minWidth="60dp"
+                                android:background="@drawable/bg_button_stroke"
+                                android:textAllCaps="false"
+                                android:text="Vegan"
+                                android:textStyle="bold"
+                                android:textColor="@color/my_green"/>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="6dp"
+                                android:paddingHorizontal="12dp"
+                                android:minHeight="33dp"
+                                android:minWidth="60dp"
+                                android:background="@drawable/bg_button_stroke"
+                                android:textAllCaps="false"
+                                android:text="Vegetariant"
+                                android:textStyle="bold"
+                                android:textColor="@color/my_green"/>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="6dp"
+                                android:paddingHorizontal="12dp"
+                                android:minHeight="33dp"
+                                android:minWidth="60dp"
+                                android:background="@drawable/bg_button_stroke"
+                                android:textAllCaps="false"
+                                android:text="Others"
+                                android:textStyle="bold"
+                                android:textColor="@color/my_green"/>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_restaurant_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:itemCount="20"
+        tools:listitem="@layout/item_restaurant"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
