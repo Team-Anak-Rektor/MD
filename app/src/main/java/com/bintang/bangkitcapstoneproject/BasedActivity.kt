@@ -14,6 +14,8 @@ import com.bintang.bangkitcapstoneproject.databinding.ActivityBasedBinding
 
 class BasedActivity : AppCompatActivity() {
 
+    //SHA256:GzYjOQmJtOyRpEbZlZYAoh/49bScljVcsr+2krzouH4 naufanirfanda24@gmail.com
+
     private lateinit var binding: ActivityBasedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
