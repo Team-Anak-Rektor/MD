@@ -9,6 +9,8 @@ import com.bintang.bangkitcapstoneproject.model.Restaurant
 class RestaurantListAdapter(private val restaurantList: List<Restaurant>) :
     RecyclerView.Adapter<RestaurantListAdapter.ListViewHolder>() {
 
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
     inner class ListViewHolder(val binding: ItemRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -24,7 +26,19 @@ class RestaurantListAdapter(private val restaurantList: List<Restaurant>) :
             tvRating.text = restaurantList[position].rating
             tvOthersInfo.text = restaurantList[position].others
         }
+
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(restaurantList[holder.adapterPosition])
+        }
     }
 
     override fun getItemCount(): Int = restaurantList.size
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(item: Restaurant)
+    }
 }

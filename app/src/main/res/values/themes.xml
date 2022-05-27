@@ -9,8 +9,14 @@
         <item name="colorSecondary">@color/my_green</item>
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/my_green</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- StatusBar & NavBar color -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">@color/light_grey</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="MyChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_color</item>
+    </style>
+
 </resources>

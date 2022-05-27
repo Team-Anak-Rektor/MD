@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.bintang.bangkitcapstoneproject.ui.dashboard.DashboardFragment"
+        android:name="com.bintang.bangkitcapstoneproject.ui.food_detector.FoodDetectorFragment"
         android:label="@string/title_food_detector"
         tools:layout="@layout/fragment_dashboard" />
 

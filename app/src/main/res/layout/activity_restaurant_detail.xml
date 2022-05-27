@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/light_grey"
+    tools:context=".ui.restaurant_detail.RestaurantDetailActivity">
+
+    <!--CUSTOM APPBAR-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed" >
+
+            <!--TOOLBAR-->
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_gravity="bottom"
+                app:layout_collapseMode="pin" />
+
+            <!--APPBAR-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="12dp">
+
+                <!--BACK BUTTON-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:minWidth="0dp"
+                    android:padding="12dp"
+                    android:drawableStart="@drawable/ic_back"
+                    android:background="@drawable/bg_button_oval_filled"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--RESTAURANT NAME-->
+                <TextView
+                    android:id="@+id/tv_restaurant_name"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="24dp"
+                    android:layout_height="45dp"
+                    android:gravity="bottom"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="18sp"
+                    app:autoSizeMaxTextSize="24sp"
+                    app:autoSizeStepGranularity="1sp"
+                    android:text="Salad Stop, Plaza Indonesia"
+                    app:layout_constraintTop_toBottomOf="@id/btn_back"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!--LOCATION -->
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jakarta Pusat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_restaurant_name" />
+
+                <!--DIVIDER-->
+                <TextView
+                    android:id="@+id/divider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    app:layout_constraintStart_toEndOf="@+id/tv_location"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_restaurant_name" />
+
+                <!--OPEN STATUS-->
+                <TextView
+                    android:id="@+id/tv_open_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Open Now"
+                    android:textColor="@color/my_green"
+                    app:layout_constraintStart_toEndOf="@+id/divider"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_restaurant_name" />
+
+                <!--RATINGS-->
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:text="4.8 (128)"
+                    android:textSize="13sp"
+                    app:drawableStartCompat="@drawable/ic_star"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location"
+                    tools:text="4.8 (128)" />
+
+                <!--DIVIDER 1-->
+                <TextView
+                    android:id="@+id/divider1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_rating"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_distance"
+                    app:layout_constraintStart_toEndOf="@+id/tv_rating"
+                    app:layout_constraintTop_toTopOf="@+id/tv_rating" />
+
+                <!--DISTANCE-->
+                <TextView
+                    android:id="@+id/tv_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:text="3.0 Km"
+                    android:textSize="13sp"
+                    app:drawableStartCompat="@drawable/ic_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location"
+                    tools:text="3.0 Km" />
+
+                <!--DIVIDER 2-->
+                <TextView
+                    android:id="@+id/divider2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_price"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_price"
+                    app:layout_constraintStart_toEndOf="@+id/tv_distance"
+                    app:layout_constraintTop_toTopOf="@+id/tv_distance" />
+
+                <!--PRICE-->
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:text="Expensive"
+                    android:textSize="13sp"
+                    app:drawableStartCompat="@drawable/ic_price"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location"
+                    tools:text="Expensive" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!--LIST DETAIL RESTAURANT INFO-->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include
+            layout="@layout/item_restaurant_info"
+            android:id="@+id/restaurant_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!--BOTTOM ACTION BAR-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        app:layout_collapseMode="pin"
+        android:background="@color/white"
+        android:elevation="10dp">
+
+        <!--BUTTON FAVORITE-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:gravity="center_vertical"
+            android:minWidth="0dp"
+            android:padding="15dp"
+            android:drawableStart="@drawable/ic_favorite_sroke"
+            android:background="@drawable/bg_button_oval_stroke"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--ANOTHER BUTTON-->
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_favorite"
+            app:layout_constraintTop_toTopOf="parent">
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:paddingEnd="12dp"
+               android:gravity="center_vertical"
+               android:orientation="horizontal">
+
+               <androidx.appcompat.widget.AppCompatButton
+                   android:id="@+id/btn_call"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:paddingHorizontal="12dp"
+                   android:layout_marginHorizontal="6dp"
+                   android:drawableStart="@drawable/ic_call"
+                   android:drawablePadding="6dp"
+                   android:text="Call"
+                   android:textAllCaps="false"
+                   android:textStyle="bold"
+                   android:textColor="@color/white"
+                   android:background="@drawable/bg_button_filled" />
+
+               <androidx.appcompat.widget.AppCompatButton
+                   android:id="@+id/btn_navigate"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:paddingHorizontal="12dp"
+                   android:layout_marginHorizontal="6dp"
+                   android:drawableStart="@drawable/ic_navigation"
+                   android:drawablePadding="6dp"
+                   android:text="Navigate"
+                   android:textAllCaps="false"
+                   android:textStyle="bold"
+                   android:textColor="@color/white"
+                   android:background="@drawable/bg_button_filled" />
+
+               <androidx.appcompat.widget.AppCompatButton
+                   android:id="@+id/btn_share"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginHorizontal="6dp"
+                   android:paddingHorizontal="12dp"
+                   android:drawableStart="@drawable/ic_share"
+                   android:drawablePadding="6dp"
+                   android:text="Share"
+                   android:textAllCaps="false"
+                   android:textColor="@color/white"
+                   android:textStyle="bold"
+                   android:background="@drawable/bg_button_filled" />
+
+
+           </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+

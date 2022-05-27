@@ -1,4 +1,4 @@
-package com.bintang.bangkitcapstoneproject.ui.dashboard
+package com.bintang.bangkitcapstoneproject.ui.food_detector
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bintang.bangkitcapstoneproject.databinding.FragmentDashboardBinding
 
-class DashboardFragment : Fragment() {
+class FoodDetectorFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
 
@@ -23,7 +23,7 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+            ViewModelProvider(this).get(FoodDetectorViewModel::class.java)
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
