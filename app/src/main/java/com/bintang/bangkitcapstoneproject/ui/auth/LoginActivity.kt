@@ -79,25 +79,26 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            btnSignup.setOnClickListener {
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+            }
+
         }
     }
 
     private fun viewAnimation() {
 
-        binding.apply {
-            ObjectAnimator.ofFloat(imgCover, View.TRANSLATION_Y, -30f, 30f).apply {
-                duration = 4000
-                repeatCount = ObjectAnimator.INFINITE
-                repeatMode = ObjectAnimator.REVERSE
-            }.start()
-        }
-
-        val image = ObjectAnimator.ofFloat(binding.imgCover, View.ALPHA, 1f).setDuration(500)
+        val cvImage = ObjectAnimator.ofFloat(binding.imgCover, View.ALPHA, 1f).setDuration(500)
         val tvTitle = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).apply {
             duration = 500
             startDelay = 1300
         }
-
+        val tvMessage = ObjectAnimator.ofFloat(binding.tvSubtitle, View.ALPHA, 1f).apply {
+            duration = 500
+            startDelay = 1300
+        }
         val edtlEmail = ObjectAnimator.ofFloat(binding.edtlEmail, View.ALPHA, 1f).setDuration(500)
         val edtlPassword = ObjectAnimator.ofFloat(binding.edtlPassword, View.ALPHA, 1f).setDuration(500)
         val edtEmail = ObjectAnimator.ofFloat(binding.edtEmail, View.ALPHA, 1f).setDuration(500)
@@ -111,6 +112,10 @@ class LoginActivity : AppCompatActivity() {
             startDelay = 500
         }
 
+        val titleAnimation = AnimatorSet().apply {
+            playTogether(tvTitle, tvMessage)
+        }
+
         val formAnimation = AnimatorSet().apply {
             playTogether(edtlEmail, edtEmail, edtlPassword ,edtPassword)
         }
@@ -120,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         AnimatorSet().apply {
-            playSequentially(tvTitle, image, formAnimation, btnAnimation)
+            playSequentially(cvImage, titleAnimation, formAnimation, btnAnimation)
             start()
         }
     }
