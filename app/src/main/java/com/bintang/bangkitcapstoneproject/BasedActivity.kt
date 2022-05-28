@@ -28,6 +28,8 @@ class BasedActivity : AppCompatActivity() {
         layoutConfig()
     }
 
+    //test
+
     private fun layoutConfig() {
         //Disable Night Mode Layout
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
