@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.bintang.bangkitcapstoneproject.data.impl.FoodDetectorCameraRepositoryImpl
 import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorCameraBinding
+import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModel
+import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModelFactory
 import com.bintang.bangkitcapstoneproject.utils.createFile
 
 class FoodDetectorCamera : AppCompatActivity() {
@@ -21,6 +25,11 @@ class FoodDetectorCamera : AppCompatActivity() {
 
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private val foodDetectorCameraViewModel: FoodDetectorCameraViewModel by viewModels {
+        FoodDetectorCameraViewModelFactory(
+            FoodDetectorCameraRepositoryImpl()
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +87,7 @@ class FoodDetectorCamera : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    // Send image to API
+                    // Do something if take picture success
                     TODO("Not yet implemented")
                 }
 
@@ -94,7 +103,7 @@ class FoodDetectorCamera : AppCompatActivity() {
     }
 
     private fun switchCamera() {
-        TODO("Not yet implemented")
+        foodDetectorCameraViewModel.switchCameraOCR()
     }
 
     private fun searchButtonAction() {
