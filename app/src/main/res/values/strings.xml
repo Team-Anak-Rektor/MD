@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">BangkitCapstoneProject</string>
+    <string name="capture_image_button">Capture Image Button</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="search_food_text">Type Some Food…</string>
+    <string name="search_text_1">Enter the name of the food</string>
+    <string name="search_text_2">check if the food is healthy</string>
+    <string name="back">back</string>
+    <string name="search">Search</string>
+    <string name="result_lorem">Result : Lorem</string>
+    <string name="contain">Contain :</string>
+    <string name="suitable_for">Suitable For :</string>
+    <string name="result_emoticon">result emoticon</string>
     <string name="title_activity_based">BasedActivity</string>
     <string name="title_home">Home</string>
     <string name="title_food_detector">Food Detector</string>
