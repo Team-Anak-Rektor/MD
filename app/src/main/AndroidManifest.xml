@@ -15,14 +15,14 @@
         android:theme="@style/Theme.BangkitCapstoneProject">
 
         <activity
-            android:name=".ui.ui_elements.FoodValidatorText"
+            android:name=".ui.food_detector.FoodValidatorText"
             android:exported="false" />
         <activity
-            android:name=".ui.ui_elements.FoodDetectorCamera"
+            android:name=".ui.food_detector.FoodDetectorCamera"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:exported="false" />
           <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
@@ -44,10 +44,6 @@
 
         <activity
             android:name=".ui.restaurant_detail.RestaurantDetailActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".MainActivity"
             android:exported="true" />
 
     </application>

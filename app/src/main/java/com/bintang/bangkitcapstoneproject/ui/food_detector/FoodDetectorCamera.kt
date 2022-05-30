@@ -1,4 +1,4 @@
-package com.bintang.bangkitcapstoneproject.ui.ui_elements
+package com.bintang.bangkitcapstoneproject.ui.food_detector
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity

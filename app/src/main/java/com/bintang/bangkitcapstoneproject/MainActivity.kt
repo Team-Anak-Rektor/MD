@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bintang.bangkitcapstoneproject.databinding.ActivityMainBinding
-import com.bintang.bangkitcapstoneproject.ui.ui_elements.FoodDetectorCamera
+import com.bintang.bangkitcapstoneproject.ui.food_detector.FoodDetectorCamera
 
 class MainActivity : AppCompatActivity() {
 
