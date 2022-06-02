@@ -24,6 +24,7 @@
             android:layout_height="250dp"
             android:background="@color/white"
             tools:background="@color/my_green_100"
+            app:imagePlaceholder="@drawable/img_place_holder"
             app:scaleOnScroll="true"
             app:showTopShadow="false"
             app:infiniteCarousel="false"

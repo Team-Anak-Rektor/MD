@@ -140,8 +140,8 @@
                     android:text="3.0 Km"
                     android:textSize="13sp"
                     app:drawableStartCompat="@drawable/ic_location"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_price"
+                    app:layout_constraintStart_toEndOf="@+id/tv_rating"
                     app:layout_constraintTop_toBottomOf="@+id/tv_location"
                     tools:text="3.0 Km" />
 
@@ -279,12 +279,17 @@
                    android:textStyle="bold"
                    android:background="@drawable/bg_button_filled" />
 
-
            </LinearLayout>
 
         </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--LOADING LAYOUT-->
+    <include
+        layout="@layout/loading_layout"
+        android:id="@+id/loading_layout"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

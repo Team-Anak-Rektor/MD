@@ -12,6 +12,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bintang.bangkitcapstoneproject.databinding.ActivityBasedBinding
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
 class BasedActivity : AppCompatActivity() {
 
@@ -26,21 +28,26 @@ class BasedActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         layoutConfig()
+        navigation()
     }
-    
-    private fun layoutConfig() {
-        //Disable Night Mode Layout
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+    private fun navigation() {
         //Bottom Navigation Config
         val navView: BottomNavigationView = binding.navView
         navView.itemIconTintList = null
         val navController = findNavController(R.id.nav_host_fragment_activity_based)
         navView.setupWithNavController(navController)
+    }
+
+    private fun layoutConfig() {
+        //Disable Night Mode Layout
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //StatusBar & NavBar Color Config
         val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetController?.isAppearanceLightStatusBars = true
         windowInsetController?.isAppearanceLightNavigationBars = true
     }
+
+
 }

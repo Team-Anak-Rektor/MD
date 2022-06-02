@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.widget.doOnTextChanged
 import com.bintang.bangkitcapstoneproject.BasedActivity
@@ -131,6 +132,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun layoutConfig() {
+
+        //Disable Night Mode Layout
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         //StatusBar & NavBar Color Config
         val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetController?.isAppearanceLightStatusBars = true

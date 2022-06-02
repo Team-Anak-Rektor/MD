@@ -43,6 +43,7 @@
         app:layout_constraintStart_toEndOf="@id/cv_image"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!--TV RESTAURANT NAME-->
         <TextView
             android:id="@+id/tv_restaurant_name"
             android:layout_width="match_parent"
@@ -58,12 +59,14 @@
             app:autoSizeStepGranularity="1sp"
             tools:text="Salad Stop, Bekasi Utaraaaa " />
 
+        <!--TAG LAYOUT-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:orientation="horizontal" >
 
+            <!--FOOD TAG 1-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,6 +78,7 @@
                 android:textColor="@color/my_green"
                 android:textSize="11sp" />
 
+            <!--FOOD TAG 2-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,12 +93,14 @@
 
         </LinearLayout>
 
+        <!--FOOD TAG 1-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="horizontal" >
 
+            <!--RATING-->
             <TextView
                 android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
@@ -105,6 +111,7 @@
                 android:textSize="11sp"
                 app:drawableStartCompat="@drawable/ic_rating" />
 
+            <!--DIVIDER-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,6 +119,7 @@
                 android:textStyle="bold"
                 android:textSize="11sp" />
 
+            <!--TV OPEN STATUS-->
             <TextView
                 android:id="@+id/tv_open_status"
                 android:layout_width="wrap_content"
@@ -123,11 +131,13 @@
 
         </LinearLayout>
 
+        <!--OTHERS INFO (HALAL STATUS, DISTANCE, PRICE LEVEL)-->
         <TextView
             android:id="@+id/tv_others_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:text="@string/other_info"
             tools:text="Halal • 3.0 km • $$$"
             android:textSize="11sp" />
 

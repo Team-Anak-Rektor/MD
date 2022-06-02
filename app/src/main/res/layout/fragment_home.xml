@@ -201,4 +201,11 @@
         tools:listitem="@layout/item_restaurant"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+    <!--LOADING LAYOUT-->
+    <include
+        layout="@layout/loading_layout"
+        android:id="@+id/loading_layout"
+        android:visibility="gone" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
