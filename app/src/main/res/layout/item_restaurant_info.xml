@@ -1,188 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="12dp"
-    android:paddingTop="12dp"
-    android:paddingBottom="100dp" >
+    android:background="@color/white" >
 
-    <!--RESTAURANT IMAGE-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="100dp" >
 
-        <!--RESTAURANT IMAGE CAROUSEL-->
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel"
+        <!--RESTAURANT IMAGE-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:background="@color/white"
-            tools:background="@color/my_green_100"
-            app:imagePlaceholder="@drawable/img_place_holder"
-            app:scaleOnScroll="true"
-            app:showTopShadow="false"
-            app:infiniteCarousel="false"
-            app:showBottomShadow="false"
-            app:showIndicator="false"
-            app:showCaption="false"
-            app:showNavigationButtons="false"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:cardElevation="0dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.cardview.widget.CardView>
+            <!--RESTAURANT IMAGE CAROUSEL-->
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white"
+                tools:background="@color/my_green_100"
+                app:imagePlaceholder="@drawable/img_place_holder"
+                app:scaleOnScroll="true"
+                app:showTopShadow="false"
+                app:infiniteCarousel="false"
+                app:showBottomShadow="false"
+                app:showIndicator="false"
+                app:showCaption="false"
+                app:showNavigationButtons="false"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-    <!--DOT INDEX-->
-    <me.relex.circleindicator.CircleIndicator2
-        android:id="@+id/index"
-        android:layout_width="match_parent"
-        android:layout_height="18dp"
-        android:layout_marginTop="12dp"
-        app:ci_gravity="start|center_vertical"
-        app:ci_height="8dp"
-        app:ci_width="8dp"
-        app:ci_drawable="@drawable/dot_green"
-        app:ci_drawable_unselected="@drawable/dot_grey"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_view"/>
+        </androidx.cardview.widget.CardView>
 
-    <!--DIVIDER-->
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/long_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="18dp"
-        app:layout_constraintTop_toBottomOf="@id/index"/>
-
-    <!--TAGS-->
-    <LinearLayout
-        android:id="@+id/layout_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/long_divider">
-
-        <TextView
+        <!--DOT INDEX-->
+        <me.relex.circleindicator.CircleIndicator2
+            android:id="@+id/index"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TAGS"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="18dp"
             android:layout_marginTop="12dp"
-            android:orientation="horizontal">
+            app:ci_gravity="start|center_vertical"
+            app:ci_height="8dp"
+            app:ci_width="8dp"
+            app:ci_drawable="@drawable/dot_green"
+            app:ci_drawable_unselected="@drawable/dot_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_view"/>
+
+        <!--DIVIDER-->
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/long_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@id/index"/>
+
+        <!--TAGS-->
+        <LinearLayout
+            android:id="@+id/layout_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/long_divider">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="12dp"
-                android:background="@drawable/bg_button_stroke"
-                android:textColor="@color/my_green"
+                android:text="Tags"
                 android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="#vegan"
-                tools:text="#vegan"/>
+                android:textSize="16sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/tags_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:background="@drawable/bg_button_stroke"
-                android:textColor="@color/my_green"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="#vegetariant"
-                tools:text="#vegetariant"/>
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal" />
 
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <!--INFO-->
-    <LinearLayout
-        android:id="@+id/layout_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/layout_tags">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="INFO"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/lorem_ipsum"/>
-
-    </LinearLayout>
-
-    <!--SERVICE-->
-    <LinearLayout
-        android:id="@+id/layout_service"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/layout_info">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SERVICE"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
-
+        <!--ADDRESS-->
         <LinearLayout
+            android:id="@+id/layout_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/layout_tags">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="12dp"
-                android:background="@drawable/bg_button_stroke"
-                android:textColor="@color/my_green"
+                android:text="Address"
                 android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="Dine In"
-                tools:text="Dine In"/>
+                android:textSize="16sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="8dp"
-                android:background="@drawable/bg_button_stroke"
-                android:textColor="@color/my_green"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:text="Take Away"
-                tools:text="Take Away"/>
+                android:layout_marginTop="12dp"
+                android:lineHeight="24sp"
+                tools:text="Jl. Pancoran 5, Gang Tian Liong No.15, RT.8/RW.2, Glodok, Taman Sari, West Jakarta City, Jakarta 11120, Indonesia"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <!--OPEN SCHEDULE-->
+        <LinearLayout
+            android:id="@+id/layout_open_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/layout_address">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open Schedule"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_open_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineHeight="24sp"
+                android:layout_marginTop="12dp"
+                tools:text='Monday: Closed\nTuesday: 8:00 AM – 5:00 PM\nWednesday: 8:00 AM – 5:00 PM\nThursday: 8:00 AM – 5:00 PM\nFriday: 8:00 AM – 5:00 PM\nSaturday: 8:00 AM – 5:00 PM\nSunday: 8:00 AM – 5:00 PM'/>
+
+        </LinearLayout>
+
+        <!--SERVICE-->
+        <LinearLayout
+            android:id="@+id/layout_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/layout_open_schedule">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Service"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/bg_button_stroke"
+                    android:textColor="@color/my_green"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:text="Dine In"
+                    tools:text="Dine In"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:background="@drawable/bg_button_stroke"
+                    android:textColor="@color/my_green"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:text="Take Away"
+                    tools:text="Take Away"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

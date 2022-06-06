@@ -13,12 +13,21 @@ interface GooglePlaceApiService {
 
     @GET("place/nearbysearch/json")
     fun getNearbyRestaurant(
-        @Query("keyword") keyword: String = "vegetarian",
+        @Query("keyword") keyword: String,
         @Query("location") location: String,
         @Query("radius") radius: Int = 10000,
         @Query("type") type: String = "restaurant",
         @Query("key") key: String = BuildConfig.MAPS_API_KEY,
     ): Call<NearbySearchResponse>
+
+    @GET("place/nearbysearch/json")
+    fun getNearbyRestaurant1(
+        @Query("keyword") keyword: String,
+        @Query("location") location: String,
+        @Query("radius") radius: Int = 10000,
+        @Query("type") type: String = "restaurant",
+        @Query("key") key: String = BuildConfig.MAPS_API_KEY,
+    ): NearbySearchResponse
 
     @GET("place/details/json")
     fun getRestaurantDetails(

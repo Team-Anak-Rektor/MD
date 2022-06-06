@@ -1,21 +1,27 @@
 package com.bintang.bangkitcapstoneproject.ui.home
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bintang.bangkitcapstoneproject.BasedActivity
 import com.bintang.bangkitcapstoneproject.databinding.FragmentHomeBinding
 import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
 import com.bintang.bangkitcapstoneproject.ui.restaurant_detail.RestaurantDetailActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
+import com.google.android.libraries.places.api.model.Place
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
@@ -26,7 +32,13 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private var currentUserLoc = "-6.1939,106.8222"
+    private var userLocation: String? = null
+    private var initData: Boolean? = null
+    
+    
+    private val coordinates = mutableListOf<String>()
+    private val distance = mutableListOf<String>()
+    private var asal = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,34 +72,114 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         binding.rvRestaurantItem.layoutManager = layoutManager
 
         getRestaurantList()
+        //viewAction()
     }
 
     @SuppressLint("MissingPermission")
     private fun getUserLocation() {
+
+        //CHECKING LOCATION PERMISSION
         if (hasLocationPermission()) {
-            binding.root.visibility = View.VISIBLE
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                try {
-                    if (it.latitude != null && it.longitude != null) {
-                        Log.d("XOX", "${it.latitude}, ${it.longitude}")
-                        currentUserLoc = "${it.latitude},${it.longitude}"
-                        viewModel.setRestaurantList(currentUserLoc)
+            val locationRequest = LocationRequest.create().apply {
+                interval = 10000
+                fastestInterval = 5000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+
+            val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+
+            val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+            val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+            //CHECKING IF GPS IS ON
+            task.addOnSuccessListener(requireActivity()) {
+                binding.root.visibility = View.VISIBLE
+                //GET GPS LOCATION DATA
+                val lastLoc = fusedLocationProviderClient.lastLocation
+                lastLoc.addOnSuccessListener(requireActivity()) {
+                    if (it != null) {
+                        //SET LIST RESTAURANT DATA
+                        userLocation = "${it.latitude},${it.longitude}"
+                        viewModel.setRestaurantList(userLocation!!)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Looking for your location",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                } catch (e: Exception) {
-                    Log.e("Exception Locx", e.message, e)
                 }
             }
+
+            //CHECKING IF GPS IS OFF
+            task.addOnFailureListener(requireActivity()) { exception ->
+                if (exception is ResolvableApiException) {
+                    try {
+                        //SHOW DIALOG MESSAGE TO TURNING ON GPS AUTOMATICALLY
+                        exception.startResolutionForResult(requireActivity(), 1)
+                    } catch (sendEx: IntentSender.SendIntentException) {
+                    }
+                }
+            }
+
         } else {
             requestLocationPermission()
         }
     }
 
+    private fun viewAction() {
+        binding.apply {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    searchView.clearFocus()
+                    return false
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    if (!query.isNullOrEmpty() && !query.isNullOrBlank()) {
+                        viewModel.setRestaurantList(userLocation!!, query)
+                    } else {
+//                        viewModel.setRestaurantList(userLocation!!)
+                    }
+                    return false
+                }
+            })
+        }
+    }
+
     private fun getRestaurantList() {
-        viewModel.getRestaurantList().observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
+
+        initData = viewModel.isInitData
+
+        if (initData == true) {
+            viewModel.setIsInitUser(false)
+            initData = viewModel.isInitData
+        }
+
+        viewModel.getRestaurantList().observe(viewLifecycleOwner) { restaurants ->
+            if (!restaurants.isNullOrEmpty()) {
                 binding.loadingLayout.loading.visibility = View.INVISIBLE
 
-                val layoutAdapter = RestaurantListAdapter(it)
+//                for (e in restaurants) {
+//                    val loc = "${e.geometry.location.lat},${e.geometry.location.lng}"
+//                    coordinates.add(loc)
+//                }
+//
+//                for (e1 in coordinates) {
+//                    var asal0: String?
+//                    viewModel.setDistance(e1, defaultLocation)
+//                    viewModel.getDistance().observe(viewLifecycleOwner) {
+////                        val distance0 = listOf(it.distance.text)
+//                        asal = it.distance.text
+//                        distance.add(asal)
+//                        //Log.d("distanceee", asal)
+//                        Log.d("distanceee", distance.toString())
+//                    }
+//                }
+//                Log.d("coordinatesnn", "Resto: $coordinates")
+
+
+                val layoutAdapter = RestaurantListAdapter(restaurants)
                 binding.rvRestaurantItem.adapter = layoutAdapter
 
                 layoutAdapter.setOnItemClickCallback(object :
@@ -95,7 +187,10 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                     override fun onItemClicked(item: NearbySearchResult) {
                         val intent = Intent(requireContext(), RestaurantDetailActivity::class.java)
                         intent.putExtra(RestaurantDetailActivity.EXTRA_PLACE_ID, item.placeId)
-                        intent.putExtra(RestaurantDetailActivity.EXTRA_USER_LOCATION, currentUserLoc)
+                        intent.putExtra(
+                            RestaurantDetailActivity.EXTRA_USER_LOCATION,
+                            userLocation
+                        )
                         startActivity(intent)
                     }
                 })
@@ -132,9 +227,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-
         binding.root.visibility = View.VISIBLE
-
         Toast.makeText(
             requireContext(),
             "Location Granted",
@@ -154,32 +247,13 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             this,
             "This application need to access your location",
             PERMISSION_LOCATION_REQUEST_CODE,
-            android.Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         )
     }
 
     companion object {
         const val PERMISSION_LOCATION_REQUEST_CODE = 1
-
-        //Bekasi Utara
-        const val LAT = "-6.2212152"
-        const val LON = "107.0025133"
     }
 
 }
-
-//        BuildConfig.MAPS_API_KEY
-
-//        binding.btnSearch.setOnClickListener {
-//            if (hasLocationPermission()) {
-//                //binding.root.visibility = View.VISIBLE
-//                fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-//                    val geocoder = Geocoder(requireContext())
-//                    val currentLocation = geocoder.getFromLocation(it.latitude, it.longitude, 1)
-//                    //Log.d("LOCX", currentLocation.first().locality)
-//                    Log.d("LOCX", "Lat: ${it.latitude} - Lon: ${it.longitude}")
-//                }
-//            } else {
-//                requestLocationPermission()
-//            }
-//        }

@@ -10,8 +10,10 @@ import com.bintang.bangkitcapstoneproject.databinding.ItemRestaurantBinding
 import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
 import com.bumptech.glide.Glide
 
-class RestaurantListAdapter(private val restaurantList: List<NearbySearchResult>) :
-    RecyclerView.Adapter<RestaurantListAdapter.ListViewHolder>() {
+class RestaurantListAdapter(
+    private val restaurantList: List<NearbySearchResult>,
+    //private val restaurantDistance: List<String>
+    ) : RecyclerView.Adapter<RestaurantListAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -58,7 +60,8 @@ class RestaurantListAdapter(private val restaurantList: List<NearbySearchResult>
 
             tvRestaurantName.text = restaurantList[i].name
             tvRating.text = restaurantList[i].rating.toString()
-            tvOthersInfo.text = "3.0 km • ${priceLevelConverter(restaurantList[i].priceLevel)}"
+            //tvOthersInfo.text = restaurantDistance[i]
+            //tvOthersInfo.text = "${restaurantDistance[i]} • ${priceLevelConverter(restaurantList[i].priceLevel)}"
         }
 
         holder.itemView.setOnClickListener {
