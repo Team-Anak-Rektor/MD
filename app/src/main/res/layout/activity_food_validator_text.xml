@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.food_detector.FoodValidatorText">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_back"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:text="@string/back"
-        android:textStyle="bold"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:drawableStart="@drawable/ic_back"
+        android:background="@drawable/bg_button_oval_filled"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,25 +45,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_text" />
 
-    <com.bintang.bangkitcapstoneproject.utils.CustomSearchBar
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_search"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/search"
+        android:background="@drawable/bg_button_oval_filled"
+        android:drawableStart="@drawable/ic_search"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/search_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_bar" />
+
+    <SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_button_stroke"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="Search restaurant..."
+        android:searchIcon="@null"
+        app:layout_constraintEnd_toStartOf="@+id/btn_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_text_2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_text_2" />
 
     <TextView
         android:id="@+id/search_result"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/result_lorem"
         android:textSize="25sp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_search"
         app:layout_constraintStart_toStartOf="@+id/search_bar"
         app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
@@ -73,7 +91,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/contain"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/search_bar"
+        app:layout_constraintEnd_toEndOf="@+id/btn_search"
         app:layout_constraintStart_toStartOf="@id/search_bar"
         app:layout_constraintTop_toBottomOf="@id/search_result" />
 
@@ -94,7 +112,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/suitable_for"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/search_bar"
+        app:layout_constraintEnd_toEndOf="@+id/btn_search"
         app:layout_constraintStart_toStartOf="@id/search_bar"
         app:layout_constraintTop_toBottomOf="@id/ingredient" />
 

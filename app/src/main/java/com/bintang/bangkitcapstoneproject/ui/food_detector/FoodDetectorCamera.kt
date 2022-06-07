@@ -1,5 +1,6 @@
 package com.bintang.bangkitcapstoneproject.ui.food_detector
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -107,7 +108,8 @@ class FoodDetectorCamera : AppCompatActivity() {
     }
 
     private fun searchButtonAction() {
-        TODO("Not yet implemented")
+        val intent = Intent(this@FoodDetectorCamera, FoodValidatorText::class.java)
+        startActivity(intent)
     }
 
     private fun hideSystemUI() {
