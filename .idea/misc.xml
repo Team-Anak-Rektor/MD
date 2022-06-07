@@ -3,11 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_filled.xml" value="0.1215" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_oval_filled.xml" value="0.1215" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/home_selector.xml" value="0.1215" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_back.xml" value="0.1215" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_capture.xml" value="0.1215" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_price.xml" value="0.1215" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_search.xml" value="0.1215" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_switch_camera.xml" value="0.1215" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_detector_camera.xml" value="0.1" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_validator_text.xml" value="0.25" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_based.xml" value="0.25" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_detector_camera.xml" value="0.22" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_validator_text.xml" value="0.22" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_register.xml" value="0.209375" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_restaurant_detail.xml" value="0.209375" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_profile.xml" value="0.10182370820668693" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/item_restaurant.xml" value="0.10182370820668693" />
         <entry key="app/src/main/res/drawable/bg_button_circle.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/bg_button_filled.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/bg_button_oval_filled.xml" value="0.133" />
