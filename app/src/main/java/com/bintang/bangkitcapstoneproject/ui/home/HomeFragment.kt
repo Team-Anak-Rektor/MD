@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,30 +13,33 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintang.bangkitcapstoneproject.BasedActivity
 import com.bintang.bangkitcapstoneproject.databinding.FragmentHomeBinding
 import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
 import com.bintang.bangkitcapstoneproject.ui.restaurant_detail.RestaurantDetailActivity
+import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.model.Place
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var viewModel: HomeViewModel
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private var userLocation: String? = null
+    private val adapter = RestaurantListAdapter()
+
     private var initData: Boolean? = null
-    
-    
+
     private val coordinates = mutableListOf<String>()
     private val distance = mutableListOf<String>()
     private var asal = ""
@@ -47,19 +51,14 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[HomeViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, ViewModelFactory(requireContext()))[HomeViewModel::class.java]
 
         //ITEM VISIBILITY
         binding.root.visibility = View.GONE
         binding.loadingLayout.loading.visibility = View.VISIBLE
 
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
-
-        getUserLocation()
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         return binding.root
     }
@@ -71,129 +70,17 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvRestaurantItem.layoutManager = layoutManager
 
-        getRestaurantList()
-        //viewAction()
+        setupUserLocation()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getUserLocation() {
-
-        //CHECKING LOCATION PERMISSION
-        if (hasLocationPermission()) {
-            val locationRequest = LocationRequest.create().apply {
-                interval = 10000
-                fastestInterval = 5000
-                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            }
-
-            val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-
-            val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
-            val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-            //CHECKING IF GPS IS ON
-            task.addOnSuccessListener(requireActivity()) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_CHECK_SETTINGS -> {
                 binding.root.visibility = View.VISIBLE
-                //GET GPS LOCATION DATA
-                val lastLoc = fusedLocationProviderClient.lastLocation
-                lastLoc.addOnSuccessListener(requireActivity()) {
-                    if (it != null) {
-                        //SET LIST RESTAURANT DATA
-                        userLocation = "${it.latitude},${it.longitude}"
-                        viewModel.setRestaurantList(userLocation!!)
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Looking for your location",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-
-            //CHECKING IF GPS IS OFF
-            task.addOnFailureListener(requireActivity()) { exception ->
-                if (exception is ResolvableApiException) {
-                    try {
-                        //SHOW DIALOG MESSAGE TO TURNING ON GPS AUTOMATICALLY
-                        exception.startResolutionForResult(requireActivity(), 1)
-                    } catch (sendEx: IntentSender.SendIntentException) {
-                    }
-                }
-            }
-
-        } else {
-            requestLocationPermission()
-        }
-    }
-
-    private fun viewAction() {
-        binding.apply {
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    searchView.clearFocus()
-                    return false
-                }
-
-                override fun onQueryTextChange(query: String?): Boolean {
-                    if (!query.isNullOrEmpty() && !query.isNullOrBlank()) {
-                        viewModel.setRestaurantList(userLocation!!, query)
-                    } else {
-//                        viewModel.setRestaurantList(userLocation!!)
-                    }
-                    return false
-                }
-            })
-        }
-    }
-
-    private fun getRestaurantList() {
-
-        initData = viewModel.isInitData
-
-        if (initData == true) {
-            viewModel.setIsInitUser(false)
-            initData = viewModel.isInitData
-        }
-
-        viewModel.getRestaurantList().observe(viewLifecycleOwner) { restaurants ->
-            if (!restaurants.isNullOrEmpty()) {
-                binding.loadingLayout.loading.visibility = View.INVISIBLE
-
-//                for (e in restaurants) {
-//                    val loc = "${e.geometry.location.lat},${e.geometry.location.lng}"
-//                    coordinates.add(loc)
-//                }
-//
-//                for (e1 in coordinates) {
-//                    var asal0: String?
-//                    viewModel.setDistance(e1, defaultLocation)
-//                    viewModel.getDistance().observe(viewLifecycleOwner) {
-////                        val distance0 = listOf(it.distance.text)
-//                        asal = it.distance.text
-//                        distance.add(asal)
-//                        //Log.d("distanceee", asal)
-//                        Log.d("distanceee", distance.toString())
-//                    }
-//                }
-//                Log.d("coordinatesnn", "Resto: $coordinates")
-
-
-                val layoutAdapter = RestaurantListAdapter(restaurants)
-                binding.rvRestaurantItem.adapter = layoutAdapter
-
-                layoutAdapter.setOnItemClickCallback(object :
-                    RestaurantListAdapter.OnItemClickCallback {
-                    override fun onItemClicked(item: NearbySearchResult) {
-                        val intent = Intent(requireContext(), RestaurantDetailActivity::class.java)
-                        intent.putExtra(RestaurantDetailActivity.EXTRA_PLACE_ID, item.placeId)
-                        intent.putExtra(
-                            RestaurantDetailActivity.EXTRA_USER_LOCATION,
-                            userLocation
-                        )
-                        startActivity(intent)
-                    }
-                })
+                Handler().postDelayed({
+                    getUserLocation()
+                }, 3000)
             }
         }
     }
@@ -252,8 +139,108 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         )
     }
 
+    private fun setupUserLocation() {
+
+        //CHECKING LOCATION PERMISSION
+        if (hasLocationPermission()) {
+
+            val locationRequest = LocationRequest.create().apply {
+                interval = 10000
+                fastestInterval = 5000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+
+            val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+            val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+            val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+            task.addOnSuccessListener(requireActivity()) {
+                binding.root.visibility = View.VISIBLE
+                getUserLocation()
+            }
+
+            task.addOnFailureListener(requireActivity()) { e ->
+                if (e is ResolvableApiException) {
+                    try {
+                        startIntentSenderForResult(
+                            e.resolution.intentSender,
+                            REQUEST_CHECK_SETTINGS,
+                            null,
+                            0,
+                            0,
+                            0,
+                            null
+                        )
+                    } catch (sendEx: IntentSender.SendIntentException) {
+                        // Ignore the error.
+                    }
+                }
+            }
+
+        } else {
+            requestLocationPermission()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getUserLocation() {
+        val lastLoc = fusedLocationClient.lastLocation
+        lastLoc.addOnSuccessListener(requireActivity()) {
+            if (it != null) {
+                val userLocation = "${it.latitude},${it.longitude}"
+                getRestaurantList(userLocation)
+            }
+        }
+    }
+
+    private fun getRestaurantList(loc: String) {
+        viewModel.getListOfRestaurant(loc = loc).observe(viewLifecycleOwner) {
+            binding.loadingLayout.loading.visibility = View.INVISIBLE
+            if (it == null) {
+                Toast.makeText(requireContext(), "Data not found", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.loadingLayout.loading.visibility = View.INVISIBLE
+                adapter.submitData(lifecycle, it)
+                binding.rvRestaurantItem.adapter = adapter
+                adapter.setOnItemClickCallback(object :
+                    RestaurantListAdapter.OnItemClickCallback {
+                    override fun onItemClicked(item: NearbySearchResult) {
+                        val intent = Intent(requireContext(), RestaurantDetailActivity::class.java)
+                        intent.putExtra(RestaurantDetailActivity.EXTRA_PLACE_ID, item.placeId)
+                        intent.putExtra(
+                            RestaurantDetailActivity.EXTRA_USER_LOCATION,
+                            loc
+                        )
+                        startActivity(intent)
+                    }
+                })
+            }
+        }
+    }
+
+    private fun viewAction() {
+        binding.apply {
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    searchView.clearFocus()
+                    return false
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    if (!query.isNullOrEmpty() && !query.isNullOrBlank()) {
+                        // viewModel.setRestaurantList(userLocation!!, query)
+                    } else {
+//                        viewModel.setRestaurantList(userLocation!!)
+                    }
+                    return false
+                }
+            })
+        }
+    }
+
     companion object {
         const val PERMISSION_LOCATION_REQUEST_CODE = 1
+        const val REQUEST_CHECK_SETTINGS = 100
     }
 
 }

@@ -11,38 +11,33 @@ class RestaurantPagingSource(
     private val apiService: GooglePlaceApiService,
     private val keyword: String,
     private val location: String
-) : PagingSource<Int, NearbySearchResult>() {
+) : PagingSource<String, NearbySearchResult>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NearbySearchResult> {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, NearbySearchResult> {
+        val pageToken = params.key ?: INIT_PAGE_TOKEN
         return try {
-            val page = params.key ?: INIT_PAGE_INDEX
-            val response = apiService.getNearbyRestaurant1(
+            val response = apiService.getNearbyRestaurant(
                 keyword = keyword,
-                location = location
-            ).results
-
-            LoadResult.Page(
-                data = response,
-                prevKey = if (page == INIT_PAGE_INDEX) null else page - 1,
-                nextKey = if (response.isNullOrEmpty()) null else page + 1
+                location = location,
+                pageToken = pageToken
             )
-
-        }catch (exception: IOException) {
+            LoadResult.Page(
+                data = response.results,
+                prevKey = null,
+                nextKey = response.nextPageToken
+            )
+        } catch (exception: IOException) {
             LoadResult.Error(exception)
         } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, NearbySearchResult>): Int? {
-        return  state.anchorPosition?.let {
-            val anchorPage = state.closestPageToPosition(it)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-        }
+    override fun getRefreshKey(state: PagingState<String, NearbySearchResult>): String? {
+        return state.anchorPosition?.let { state.closestItemToPosition(it)?.placeId }
     }
 
     private companion object {
-        const val INIT_PAGE_INDEX = 1
+        const val INIT_PAGE_TOKEN = ""
     }
-
 }

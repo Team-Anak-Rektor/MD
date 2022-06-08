@@ -13,11 +13,7 @@ class RestaurantRepository(private val apiService: GooglePlaceApiService) {
     fun getNearbyRestaurant(keyword: String, location: String)
     : LiveData<PagingData<NearbySearchResult>> {
         return Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                initialLoadSize = 20
-            ),
+            config = PagingConfig(pageSize = 5, enablePlaceholders = false),
             pagingSourceFactory = {
                 RestaurantPagingSource(apiService, keyword, location)
             }
