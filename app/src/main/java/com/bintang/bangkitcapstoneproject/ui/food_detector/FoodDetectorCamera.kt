@@ -19,6 +19,7 @@ import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorCamera
 import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModel
 import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModelFactory
 import com.bintang.bangkitcapstoneproject.utils.createFile
+import com.bintang.bangkitcapstoneproject.tflite.Classifier
 
 class FoodDetectorCamera : AppCompatActivity() {
 
@@ -32,6 +33,11 @@ class FoodDetectorCamera : AppCompatActivity() {
         )
     }
 
+    private val mInputSize = 128
+    private val mModelPath = "adhaar.tflite"
+    private val mLabelPath = "label.txt"
+    private lateinit var classifier: Classifier
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodDetectorCameraBinding.inflate(layoutInflater)
@@ -40,6 +46,12 @@ class FoodDetectorCamera : AppCompatActivity() {
         binding.captureImage.setOnClickListener { takePhoto() }
         binding.switchCamera.setOnClickListener { switchCamera() }
         binding.searchButton.setOnClickListener { searchButtonAction() }
+
+        initClassifier()
+    }
+
+    private fun initClassifier(){
+        classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
     }
 
     override fun onResume() {
@@ -88,8 +100,14 @@ class FoodDetectorCamera : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    // Do something if take picture success
-                    TODO("Not yet implemented")
+                    val bitmap = BitmapFactory.decodeFile(photoFile.path)
+                    val result = classifier.recognizeImage(bitmap)
+
+                    Toast.makeText(
+                        this@FoodDetectorCamera,
+                        result.get(0).title,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onError(exception: ImageCaptureException) {
