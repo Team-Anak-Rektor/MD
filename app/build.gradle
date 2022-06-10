@@ -22,6 +22,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    aaptOptions{
+        noCompress "tflite"
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -70,4 +75,8 @@ dependencies {
 
     // lifecycle viewmodel
     implementation "androidx.activity:activity-ktx:1.4.0"
+
+    // Tensorflow Lite
+    implementation 'org.tensorflow:tensorflow-lite:2.9.0'
+    // implementation "org.tensorflow:tensorflow-lite:0.0.0-nightly"
 }
