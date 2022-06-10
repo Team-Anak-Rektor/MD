@@ -19,6 +19,7 @@ import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorCamera
 import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModel
 import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModelFactory
 import com.bintang.bangkitcapstoneproject.utils.createFile
+import android.graphics.BitmapFactory
 import com.bintang.bangkitcapstoneproject.tflite.Classifier
 
 class FoodDetectorCamera : AppCompatActivity() {
