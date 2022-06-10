@@ -9,20 +9,25 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProvider
 import com.bintang.bangkitcapstoneproject.databinding.ActivityRegisterBinding
+import com.bintang.bangkitcapstoneproject.ui.auth.login.LoginActivity
+import com.bintang.bangkitcapstoneproject.ui.auth.register.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var viewModel: RegisterViewModel
     private var isNameValid = true
     private var isEmailValid = true
     private var isPasswordValid = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
 
         layoutConfig()
         viewAnimation()
@@ -30,7 +35,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun viewAction() {
-
         binding.apply {
 
             edtName.doOnTextChanged { text, _, _, _ ->
@@ -89,8 +93,8 @@ class RegisterActivity : AppCompatActivity() {
             val password = edtPassword.text.toString()
 
             if (email.length < 3 || !email.contains("@")){
-                edtlEmail.error = "Email is not valid"
                 isEmailValid = false
+                edtlEmail.error = "Email is not valid"
             }
 
             if (name.isEmpty()) {
@@ -109,21 +113,42 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             if (isNameValid && isEmailValid && isPasswordValid) {
-                val showDialog = AlertDialog
-                    .Builder(this@RegisterActivity)
-                    .setTitle("Success")
-                showDialog.setPositiveButton("Login") {
-                        dialog, _ ->
-                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    dialog.dismiss()
-                    finish()
+
+                loadingLayout.loading.visibility = View.VISIBLE
+
+                viewModel.register(name, email, password)
+
+                viewModel.getRegisterResult().observe(this@RegisterActivity) {
+                    loadingLayout.loading.visibility = View.INVISIBLE
+                    if (it.status == "failed") {
+                        val showDialog = AlertDialog
+                            .Builder(this@RegisterActivity)
+                            .setTitle("Registration failed, ${it.message}")
+                        showDialog.setPositiveButton("Back") { dialog, _ ->
+                            dialog.cancel()
+                            finish()
+                            startActivity(intent)
+                        }
+                        showDialog.show()
+
+                    } else {
+                        val showDialog = AlertDialog
+                            .Builder(this@RegisterActivity)
+                            .setTitle("Success, ${it.message}")
+                        showDialog.setPositiveButton("Login") {
+                                dialog, _ ->
+                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            startActivity(intent)
+                            dialog.dismiss()
+                            finish()
+                        }
+                        showDialog.setNegativeButton("Back") {
+                                dialog, _ -> dialog.cancel()
+                        }
+                        showDialog.show()
+                        clearData()
+                    }
                 }
-                showDialog.setNegativeButton("Back") {
-                        dialog, _ -> dialog.cancel()
-                }
-                showDialog.show()
-                clearData()
             }
         }
     }

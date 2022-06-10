@@ -3,8 +3,11 @@
     package="com.bintang.bangkitcapstoneproject">
 
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +16,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BangkitCapstoneProject">
+
+        <!--RELEASE MODE-->
+        <activity
+            android:name=".ui.auth.login.LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".BasedActivity"
+            android:exported="true"
+            android:label="@string/title_activity_based" />
+
 
         <activity
             android:name=".ui.food_detector.FoodValidatorText"
@@ -28,23 +48,27 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
-
-        <activity
-            android:name=".BasedActivity"
-            android:exported="true"
-            android:label="@string/title_activity_based" />
-
-        <activity
             android:name=".ui.restaurant_detail.RestaurantDetailActivity"
             android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+<!--        &lt;!&ndash;DEVELOP MODE&ndash;&gt;-->
+<!--        <activity-->
+<!--            android:name=".ui.auth.login.LoginActivity"-->
+<!--            android:exported="true" />-->
+
+<!--        <activity-->
+<!--            android:name=".BasedActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/title_activity_based" >-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
     </application>
 

@@ -1,27 +1,46 @@
-package com.bintang.bangkitcapstoneproject.ui.auth
+package com.bintang.bangkitcapstoneproject.ui.auth.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import com.bintang.bangkitcapstoneproject.BasedActivity
 import com.bintang.bangkitcapstoneproject.R
 import com.bintang.bangkitcapstoneproject.databinding.ActivityLoginBinding
+import com.bintang.bangkitcapstoneproject.ui.auth.RegisterActivity
+import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
+import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var viewModel: LoginViewModel
+    private var isEmailValid = true
+    private var isPasswordValid = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val pref = SessionPreferences.getInstance(dataStore)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(pref, this)
+        )[LoginViewModel::class.java]
 
         layoutConfig()
         viewAnimation()
@@ -30,25 +49,25 @@ class LoginActivity : AppCompatActivity() {
 
     private fun viewAction() {
 
-        var isValid = true
-
         binding.apply {
 
             edtEmail.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
                     edtlEmail.error = "Email must not be empty"
+                    isEmailValid = false
                 } else {
                     edtlEmail.isErrorEnabled = false
-                    isValid = true
+                    isEmailValid = true
                 }
             }
 
             edtPassword.doOnTextChanged { text, _, _, _ ->
                 if (text!!.isEmpty()) {
                     edtlPassword.error = "Password must not be empty"
+                    isPasswordValid = false
                 } else {
                     edtlPassword.isErrorEnabled = false
-                    isValid = true
+                    isPasswordValid = true
                 }
             }
 
@@ -57,25 +76,47 @@ class LoginActivity : AppCompatActivity() {
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
 
-                if (email.length < 4 || !email.contains("@")) {
-                    isValid = false
+                if (email.length < 3 || !email.contains("@")){
+                    isPasswordValid = false
                     edtlEmail.error = "Email is not valid"
                 }
 
                 if (email.isEmpty()) {
-                    isValid = false
+                    isEmailValid = false
                     edtlEmail.error = "Email must not be empty"
                 }
 
                 if (password.isEmpty()) {
-                    isValid = false
+                    isPasswordValid = false
                     edtlPassword.error = "Password must not be empty"
                 }
 
-                if (isValid) {
-                    btnLogin.setOnClickListener {
-                        val intent = Intent(this@LoginActivity, BasedActivity::class.java)
-                        startActivity(intent)
+                if (isEmailValid && isPasswordValid){
+
+                    loadingLayout.loading.visibility = View.VISIBLE
+
+                    viewModel.login(email, password)
+
+                    viewModel.getLoginResult().observe(this@LoginActivity){
+                        loadingLayout.loading.visibility = View.INVISIBLE
+                        if (it.status == "failed") {
+                            AlertDialog
+                                .Builder(this@LoginActivity)
+                                .setTitle("Login Failed")
+                                .setPositiveButton("Back") {
+                                        dialog, _ -> dialog.dismiss()
+                                    finish()
+                                    startActivity(intent)
+                                }
+                                .show()
+
+                        } else {
+                            val intent = Intent(this@LoginActivity, BasedActivity::class.java)
+                            viewModel.setLoginSession(true)
+                            viewModel.setPrivateKey(it.token)
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
             }
@@ -84,10 +125,8 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
             }
-
         }
     }
-
     private fun viewAnimation() {
 
         val cvImage = ObjectAnimator.ofFloat(binding.imgCover, View.ALPHA, 1f).setDuration(500)
@@ -100,9 +139,11 @@ class LoginActivity : AppCompatActivity() {
             startDelay = 1300
         }
         val edtlEmail = ObjectAnimator.ofFloat(binding.edtlEmail, View.ALPHA, 1f).setDuration(500)
-        val edtlPassword = ObjectAnimator.ofFloat(binding.edtlPassword, View.ALPHA, 1f).setDuration(500)
+        val edtlPassword =
+            ObjectAnimator.ofFloat(binding.edtlPassword, View.ALPHA, 1f).setDuration(500)
         val edtEmail = ObjectAnimator.ofFloat(binding.edtEmail, View.ALPHA, 1f).setDuration(500)
-        val edtPassword = ObjectAnimator.ofFloat(binding.edtPassword, View.ALPHA, 1f).setDuration(500)
+        val edtPassword =
+            ObjectAnimator.ofFloat(binding.edtPassword, View.ALPHA, 1f).setDuration(500)
         val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).apply {
             duration = 500
             startDelay = 500
@@ -117,7 +158,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val formAnimation = AnimatorSet().apply {
-            playTogether(edtlEmail, edtEmail, edtlPassword ,edtPassword)
+            playTogether(edtlEmail, edtEmail, edtlPassword, edtPassword)
         }
 
         val btnAnimation = AnimatorSet().apply {
@@ -131,6 +172,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun layoutConfig() {
+
+        //Disable Night Mode Layout
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         //StatusBar & NavBar Color Config
         val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetController?.isAppearanceLightStatusBars = true
