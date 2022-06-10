@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bintang.bangkitcapstoneproject.model.RestaurantDetailResponse
-import com.bintang.bangkitcapstoneproject.model.RestaurantDetailResult
-import com.bintang.bangkitcapstoneproject.network.GooglePlaceApiConfig
+import com.bintang.bangkitcapstoneproject.model.restaurant.RestaurantDetailResponse
+import com.bintang.bangkitcapstoneproject.model.restaurant.RestaurantDetailResult
+import com.bintang.bangkitcapstoneproject.network.google.GooglePlaceApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

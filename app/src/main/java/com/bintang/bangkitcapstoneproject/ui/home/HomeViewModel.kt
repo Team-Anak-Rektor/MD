@@ -9,7 +9,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.bintang.bangkitcapstoneproject.domain.repository.RestaurantRepository
 import com.bintang.bangkitcapstoneproject.model.*
-import com.bintang.bangkitcapstoneproject.network.GooglePlaceApiConfig
+import com.bintang.bangkitcapstoneproject.model.restaurant.DistanceMatrixResponse
+import com.bintang.bangkitcapstoneproject.model.restaurant.ElementsItem
+import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.network.google.GooglePlaceApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

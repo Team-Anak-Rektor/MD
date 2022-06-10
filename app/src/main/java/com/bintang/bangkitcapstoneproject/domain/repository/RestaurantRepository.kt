@@ -5,8 +5,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
-import com.bintang.bangkitcapstoneproject.network.GooglePlaceApiService
+import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.network.google.GooglePlaceApiService
 
 class RestaurantRepository(private val apiService: GooglePlaceApiService) {
 

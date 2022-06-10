@@ -6,29 +6,23 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bintang.bangkitcapstoneproject.BasedActivity
 import com.bintang.bangkitcapstoneproject.databinding.FragmentHomeBinding
-import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResult
 import com.bintang.bangkitcapstoneproject.ui.restaurant_detail.RestaurantDetailActivity
 import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
-import com.google.android.libraries.places.api.model.Place
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
@@ -51,8 +45,10 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        viewModel =
-            ViewModelProvider(this, ViewModelFactory(requireContext()))[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(pref = null, context = requireContext())
+        )[HomeViewModel::class.java]
 
         //ITEM VISIBILITY
         binding.root.visibility = View.GONE
@@ -195,11 +191,9 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private fun getRestaurantList(loc: String) {
         viewModel.getListOfRestaurant(loc = loc).observe(viewLifecycleOwner) {
-            binding.loadingLayout.loading.visibility = View.INVISIBLE
             if (it == null) {
                 Toast.makeText(requireContext(), "Data not found", Toast.LENGTH_SHORT).show()
             } else {
-                binding.loadingLayout.loading.visibility = View.INVISIBLE
                 adapter.submitData(lifecycle, it)
                 binding.rvRestaurantItem.adapter = adapter
                 adapter.setOnItemClickCallback(object :
@@ -216,6 +210,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                 })
             }
         }
+        binding.loadingLayout.loading.visibility = View.INVISIBLE
     }
 
     private fun viewAction() {

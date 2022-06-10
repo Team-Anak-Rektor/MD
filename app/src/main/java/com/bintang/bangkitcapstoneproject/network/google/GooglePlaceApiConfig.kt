@@ -1,4 +1,4 @@
-package com.bintang.bangkitcapstoneproject.network
+package com.bintang.bangkitcapstoneproject.network.google
 
 import com.bintang.bangkitcapstoneproject.BuildConfig
 import okhttp3.OkHttpClient

@@ -1,4 +1,4 @@
-package com.bintang.bangkitcapstoneproject.model
+package com.bintang.bangkitcapstoneproject.model.restaurant
 
 import com.google.gson.annotations.SerializedName
 

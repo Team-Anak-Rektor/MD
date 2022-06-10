@@ -2,8 +2,8 @@ package com.bintang.bangkitcapstoneproject.domain.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
-import com.bintang.bangkitcapstoneproject.network.GooglePlaceApiService
+import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.network.google.GooglePlaceApiService
 import retrofit2.HttpException
 import java.io.IOException
 

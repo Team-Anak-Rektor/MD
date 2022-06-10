@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bintang.bangkitcapstoneproject.BuildConfig
 import com.bintang.bangkitcapstoneproject.R
 import com.bintang.bangkitcapstoneproject.databinding.ItemRestaurantBinding
-import com.bintang.bangkitcapstoneproject.model.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResult
 import com.bumptech.glide.Glide
 
 class RestaurantListAdapter : PagingDataAdapter<NearbySearchResult, RestaurantListAdapter.ListViewHolder>(DIFF_CALLBACK) {

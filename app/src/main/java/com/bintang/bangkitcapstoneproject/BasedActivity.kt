@@ -1,5 +1,7 @@
 package com.bintang.bangkitcapstoneproject
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
@@ -7,28 +9,55 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bintang.bangkitcapstoneproject.databinding.ActivityBasedBinding
+import com.bintang.bangkitcapstoneproject.ui.auth.login.LoginActivity
+import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
+import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
+
 class BasedActivity : AppCompatActivity() {
 
-    //SHA256:GzYjOQmJtOyRpEbZlZYAoh/49bScljVcsr+2krzouH4 naufanirfanda24@gmail.com
-
     private lateinit var binding: ActivityBasedBinding
+    private lateinit var viewModel: BasedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityBasedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        layoutConfig()
-        navigation()
+        val pref = SessionPreferences.getInstance(dataStore)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(pref, this)
+        )[BasedViewModel::class.java]
+
+        checkUserSession()
+    }
+
+    private fun checkUserSession() {
+        viewModel.getLoginSession().observe(this) {
+            if (!it) {
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+                startActivity(intent)
+                finish()
+            } else {
+                layoutConfig()
+                navigation()
+            }
+        }
     }
 
     private fun navigation() {
@@ -48,6 +77,5 @@ class BasedActivity : AppCompatActivity() {
         windowInsetController?.isAppearanceLightStatusBars = true
         windowInsetController?.isAppearanceLightNavigationBars = true
     }
-
 
 }

@@ -1,16 +1,16 @@
-package com.bintang.bangkitcapstoneproject.network
+package com.bintang.bangkitcapstoneproject.network.google
 
-import com.bintang.bangkitcapstoneproject.model.NearbySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.bintang.bangkitcapstoneproject.BuildConfig
-import com.bintang.bangkitcapstoneproject.model.DistanceMatrixResponse
-import com.bintang.bangkitcapstoneproject.model.RestaurantDetailResponse
+import com.bintang.bangkitcapstoneproject.model.restaurant.DistanceMatrixResponse
+import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResponse
+import com.bintang.bangkitcapstoneproject.model.restaurant.RestaurantDetailResponse
 import retrofit2.Call
-
 
 interface GooglePlaceApiService {
 
+    //NEARBY SEARCH
     @GET("place/nearbysearch/json")
     suspend fun getNearbyRestaurant(
         @Query("keyword") keyword: String,
@@ -21,21 +21,18 @@ interface GooglePlaceApiService {
         @Query("key") key: String = BuildConfig.MAPS_API_KEY,
     ): NearbySearchResponse
 
+    //PLACE DETAILS
     @GET("place/details/json")
     fun getRestaurantDetails(
         @Query("place_id") place_id: String,
         @Query("key") key: String = BuildConfig.MAPS_API_KEY,
     ): Call<RestaurantDetailResponse>
 
+    //DISTANCE COUNTER
     @GET("distancematrix/json")
     fun getDistance(
         @Query("destinations") destinations: String,
         @Query("origins") origins: String,
         @Query("key") key: String = BuildConfig.MAPS_API_KEY,
     ): Call<DistanceMatrixResponse>
-
-
-    //ALSUM : -6.2210,107.0019
-    //Plaza Indonesia : -6.1939,106.8222
-    //PALO ALTO : 37.4308,-122.1458
 }

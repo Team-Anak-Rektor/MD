@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,21 +17,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BangkitCapstoneProject">
 
-<!--        &lt;!&ndash;RELEASE MODE&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name=".ui.auth.LoginActivity"-->
-<!--            android:exported="true" >-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+        <!--RELEASE MODE-->
+        <activity
+            android:name=".ui.auth.login.LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-<!--        </activity>-->
+        </activity>
 
-<!--        <activity-->
-<!--            android:name=".BasedActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/title_activity_based" />-->
+        <activity
+            android:name=".BasedActivity"
+            android:exported="true"
+            android:label="@string/title_activity_based" />
+
 
         <activity
             android:name=".ui.food_detector.FoodValidatorText"
@@ -55,20 +55,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
-        <!--DEVELOP MODE-->
-        <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="true" />
+<!--        &lt;!&ndash;DEVELOP MODE&ndash;&gt;-->
+<!--        <activity-->
+<!--            android:name=".ui.auth.login.LoginActivity"-->
+<!--            android:exported="true" />-->
 
-        <activity
-            android:name=".BasedActivity"
-            android:exported="true"
-            android:label="@string/title_activity_based" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--        <activity-->
+<!--            android:name=".BasedActivity"-->
+<!--            android:exported="true"-->
+<!--            android:label="@string/title_activity_based" >-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
     </application>
 
