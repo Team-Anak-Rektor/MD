@@ -58,6 +58,12 @@ class RestaurantDetailActivity : AppCompatActivity() {
         //GET RESTAURANT DATA
         viewModel.getData().observe(this) {
 
+            val destination = "${it.geometry.location.lat},${it.geometry.location.lng}"
+            viewModel.setDistance(destination, userLocation)
+            viewModel.getDistance().observe(this) { data ->
+                binding.tvDistance.text = data.distance.text
+            }
+
             //HIDING LOADING LAYOUT FROM SCREEN
             binding.loadingLayout.loading.visibility = View.INVISIBLE
 

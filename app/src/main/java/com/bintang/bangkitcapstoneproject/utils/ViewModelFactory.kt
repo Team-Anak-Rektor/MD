@@ -7,6 +7,7 @@ import com.bintang.bangkitcapstoneproject.BasedActivity
 import com.bintang.bangkitcapstoneproject.BasedViewModel
 import com.bintang.bangkitcapstoneproject.ui.auth.login.LoginViewModel
 import com.bintang.bangkitcapstoneproject.ui.home.HomeViewModel
+import com.bintang.bangkitcapstoneproject.ui.profile.ProfileViewModel
 
 class ViewModelFactory(private val pref: SessionPreferences?, private val context: Context) : ViewModelProvider.Factory  {
 
@@ -21,6 +22,9 @@ class ViewModelFactory(private val pref: SessionPreferences?, private val contex
             }
             modelClass.isAssignableFrom(BasedViewModel::class.java) -> {
                 BasedViewModel(pref!!) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(pref!!) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

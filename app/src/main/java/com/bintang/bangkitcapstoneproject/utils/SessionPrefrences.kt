@@ -34,9 +34,49 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
         }
     }
 
+    suspend fun setUserId(userId: String) {
+        dataStore.edit {
+            it[USER_ID] = userId
+        }
+    }
+
+    fun getUserId(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_ID] ?: ""
+        }
+    }
+
+    suspend fun setUserName(userName: String) {
+        dataStore.edit {
+            it[USER_NAME] = userName
+        }
+    }
+
+    fun getUserName(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_NAME] ?: ""
+        }
+    }
+
+    suspend fun setUserEmail(userEmail: String) {
+        dataStore.edit {
+            it[USER_EMAIL] = userEmail
+        }
+    }
+
+    fun getUserEmail(): Flow<String> {
+        return dataStore.data.map {
+            it[USER_EMAIL] ?: ""
+        }
+    }
+
     companion object {
         private val IS_LOGGED_IN = booleanPreferencesKey("isLoggedIn")
         private val PRIVATE_KEY = stringPreferencesKey("Token")
+        private val USER_ID = stringPreferencesKey("Id")
+        private val USER_NAME = stringPreferencesKey("Name")
+        private val USER_EMAIL = stringPreferencesKey("Email")
+
 
         @Volatile
         private var INSTANCE: SessionPreferences? = null

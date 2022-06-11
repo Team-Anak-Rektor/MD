@@ -1,4 +1,4 @@
-package com.bintang.bangkitcapstoneproject.ui.auth
+package com.bintang.bangkitcapstoneproject.ui.auth.register
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.bintang.bangkitcapstoneproject.databinding.ActivityRegisterBinding
 import com.bintang.bangkitcapstoneproject.ui.auth.login.LoginActivity
-import com.bintang.bangkitcapstoneproject.ui.auth.register.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -213,6 +213,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun layoutConfig() {
+
+        //Disable Night Mode Layout
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         //StatusBar & NavBar Color Config
         val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetController?.isAppearanceLightStatusBars = true

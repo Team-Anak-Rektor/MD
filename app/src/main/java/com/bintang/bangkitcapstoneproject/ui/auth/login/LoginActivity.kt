@@ -16,9 +16,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.bintang.bangkitcapstoneproject.BasedActivity
-import com.bintang.bangkitcapstoneproject.R
 import com.bintang.bangkitcapstoneproject.databinding.ActivityLoginBinding
-import com.bintang.bangkitcapstoneproject.ui.auth.RegisterActivity
+import com.bintang.bangkitcapstoneproject.ui.auth.register.RegisterActivity
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
 import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
 
@@ -112,10 +111,15 @@ class LoginActivity : AppCompatActivity() {
 
                         } else {
                             val intent = Intent(this@LoginActivity, BasedActivity::class.java)
-                            viewModel.setLoginSession(true)
-                            viewModel.setPrivateKey(it.token)
                             startActivity(intent)
                             finish()
+                            storeData(
+                                true,
+                                it.token,
+                                it.userData!!.id.toString(),
+                                it.userData.name,
+                                it.userData.email
+                            )
                         }
                     }
                 }
@@ -127,6 +131,15 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun storeData(session: Boolean, token: String, id: String, name: String, email: String) {
+        viewModel.setLoginSession(session)
+        viewModel.setPrivateKey(token)
+        viewModel.setUserId(id)
+        viewModel.setUserName(name)
+        viewModel.setUserEmail(email)
+    }
+
     private fun viewAnimation() {
 
         val cvImage = ObjectAnimator.ofFloat(binding.imgCover, View.ALPHA, 1f).setDuration(500)

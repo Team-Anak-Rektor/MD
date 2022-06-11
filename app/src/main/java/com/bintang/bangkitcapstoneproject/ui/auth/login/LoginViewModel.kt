@@ -17,6 +17,7 @@ import retrofit2.Response
 
 class LoginViewModel(private val pref: SessionPreferences) : ViewModel() {
 
+    //LOGIN
     private val loginResult = MutableLiveData<LoginResponse>()
 
     fun login(email: String, password: String) {
@@ -45,6 +46,8 @@ class LoginViewModel(private val pref: SessionPreferences) : ViewModel() {
 
     fun getLoginResult() : LiveData<LoginResponse> = loginResult
 
+
+    //SESSION PREFERENCES
     fun setLoginSession(isLoggedIn: Boolean) {
         viewModelScope.launch {
             pref.setLoginSession(isLoggedIn)
@@ -54,6 +57,24 @@ class LoginViewModel(private val pref: SessionPreferences) : ViewModel() {
     fun setPrivateKey(privateKey: String) {
         viewModelScope.launch {
             pref.setPrivateKey(privateKey)
+        }
+    }
+
+    fun setUserId(id: String) {
+        viewModelScope.launch {
+            pref.setUserId(id)
+        }
+    }
+
+    fun setUserName(name: String) {
+        viewModelScope.launch {
+            pref.setUserName(name)
+        }
+    }
+
+    fun setUserEmail(email: String) {
+        viewModelScope.launch {
+            pref.setUserEmail(email)
         }
     }
 

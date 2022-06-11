@@ -3,6 +3,7 @@ package com.bintang.bangkitcapstoneproject
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsetsController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bintang.bangkitcapstoneproject.databinding.ActivityBasedBinding
+import com.bintang.bangkitcapstoneproject.model.auth.UserData
 import com.bintang.bangkitcapstoneproject.ui.auth.login.LoginActivity
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
 import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
@@ -31,6 +33,7 @@ class BasedActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBasedBinding
     private lateinit var viewModel: BasedViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBasedBinding.inflate(layoutInflater)
@@ -42,6 +45,7 @@ class BasedActivity : AppCompatActivity() {
             ViewModelFactory(pref, this)
         )[BasedViewModel::class.java]
 
+        layoutConfig()
         checkUserSession()
     }
 
@@ -54,7 +58,6 @@ class BasedActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                layoutConfig()
                 navigation()
             }
         }
@@ -76,6 +79,10 @@ class BasedActivity : AppCompatActivity() {
         val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetController?.isAppearanceLightStatusBars = true
         windowInsetController?.isAppearanceLightNavigationBars = true
+    }
+
+    companion object {
+        const val EXTRA_USER_DATA = "Extra User Data"
     }
 
 }

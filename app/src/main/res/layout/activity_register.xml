@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbarThumbVertical="@null"
-    tools:context=".ui.auth.RegisterActivity">
+    tools:context=".ui.auth.register.RegisterActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="230dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginHorizontal="36dp"
-                android:src="@drawable/bg_register"
+                android:src="@drawable/cover_profile"
                 android:alpha="0"
                 tools:alpha="1"
                 app:layout_constraintTop_toTopOf="parent" />
