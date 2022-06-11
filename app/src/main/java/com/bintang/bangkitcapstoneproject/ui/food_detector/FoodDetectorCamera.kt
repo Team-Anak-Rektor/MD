@@ -1,5 +1,6 @@
 package com.bintang.bangkitcapstoneproject.ui.food_detector
 
+import android.Manifest
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +18,12 @@ import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorCamera
 
 import com.bintang.bangkitcapstoneproject.ui.utils.createFile
 import android.graphics.BitmapFactory
+import android.view.View
 import com.bintang.bangkitcapstoneproject.tflite.Classifier
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
-class FoodDetectorCamera : AppCompatActivity() {
+class FoodDetectorCamera : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityFoodDetectorCameraBinding
 
@@ -36,21 +40,48 @@ class FoodDetectorCamera : AppCompatActivity() {
         binding = ActivityFoodDetectorCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnBack.setOnClickListener { finish() }
-        binding.cameraShutter.setOnClickListener { takePhoto() }
-        binding.btnFoodSearch.setOnClickListener { searchButtonAction() }
+        //CHECKING IS THE APP HAS PERMISSION TO ACCESS CAMERA
+        if (hasCameraPermission()) {
 
-        initClassifier()
-    }
+            binding.apply {
+                btnBack.setOnClickListener { finish() }
+                cameraShutter.setOnClickListener { takePhoto() }
+                btnFoodSearch.setOnClickListener { searchButtonAction() }
+            }
+            initClassifier()
 
-    private fun initClassifier(){
-        classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
+        } else {
+            requestCameraPermission()
+        }
+
     }
 
     override fun onResume() {
         super.onResume()
         hideSystemUI()
         startCamera()
+    }
+
+    //CAMERA PERMISSION DENIED ACTION
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            SettingsDialog.Builder(this).build().show()
+        } else {
+            requestCameraPermission()
+        }
+    }
+
+    //CAMERA PERMISSION GRANTED ACTION
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        Toast.makeText(
+            this,
+            "Camera Granted Permission",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun initClassifier(){
+        classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
     }
 
     private fun startCamera() {
@@ -128,5 +159,24 @@ class FoodDetectorCamera : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    //CHECK CAMERA PERMISSION
+    private fun hasCameraPermission(): Boolean {
+        return EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)
+    }
+
+    //REQUEST CAMERA PERMISSION
+    private fun requestCameraPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            "This application need to access your camera",
+            CAMERA_PERMISSION_REQUEST_CODE,
+            Manifest.permission.CAMERA
+        )
+    }
+
+    companion object {
+        const val CAMERA_PERMISSION_REQUEST_CODE = 100
     }
 }

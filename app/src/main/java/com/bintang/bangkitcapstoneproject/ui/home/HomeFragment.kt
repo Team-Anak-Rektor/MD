@@ -121,7 +121,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private fun hasLocationPermission(): Boolean {
         return EasyPermissions.hasPermissions(
             requireContext(),
-            android.Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION
         )
     }
 
