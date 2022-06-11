@@ -15,7 +15,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorCameraBinding
 
-import com.bintang.bangkitcapstoneproject.utils.createFile
+import com.bintang.bangkitcapstoneproject.ui.utils.createFile
 import android.graphics.BitmapFactory
 import com.bintang.bangkitcapstoneproject.tflite.Classifier
 
