@@ -21,7 +21,7 @@ import com.bintang.bangkitcapstoneproject.ui.auth.register.RegisterActivity
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
 import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 
 class LoginActivity : AppCompatActivity() {
 

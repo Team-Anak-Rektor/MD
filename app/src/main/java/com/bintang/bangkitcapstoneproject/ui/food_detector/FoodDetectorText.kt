@@ -5,18 +5,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bintang.bangkitcapstoneproject.data.impl.FoodDetectorRepositoryImpl
 import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorTextBinding
+import com.bintang.bangkitcapstoneproject.ui.auth.login.dataStore
+import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
 import kotlinx.coroutines.launch
 
 class FoodDetectorText : AppCompatActivity() {
     private lateinit var binding: ActivityFoodDetectorTextBinding
     private val viewModel:FoodDetectorViewModel by viewModels{
         FoodDetectorViewModelFactory(
-            FoodDetectorRepositoryImpl()
+            FoodDetectorRepositoryImpl(
+                SessionPreferences.getInstance(dataStore)
+            )
         )
     }
 

@@ -105,5 +105,4 @@ dependencies {
 
     // Tensorflow Lite
     implementation 'org.tensorflow:tensorflow-lite:2.9.0'
-    // implementation "org.tensorflow:tensorflow-lite:0.0.0-nightly"
 }

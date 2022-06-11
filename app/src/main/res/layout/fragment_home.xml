@@ -121,7 +121,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:background="@drawable/bg_button_filled_rounded"/>
+                        android:background="@drawable/bg_button_filled"/>
 
                     <!--FILTER CHIPS-->
                     <HorizontalScrollView
