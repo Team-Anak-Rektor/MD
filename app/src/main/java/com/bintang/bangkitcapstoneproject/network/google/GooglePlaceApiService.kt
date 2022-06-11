@@ -11,7 +11,7 @@ import retrofit2.Call
 interface GooglePlaceApiService {
 
     //NEARBY SEARCH
-    @GET("place/nearbysearch/json")
+    @GET("place/nearbysearch/getFood")
     suspend fun getNearbyRestaurant(
         @Query("keyword") keyword: String,
         @Query("location") location: String,
@@ -22,14 +22,14 @@ interface GooglePlaceApiService {
     ): NearbySearchResponse
 
     //PLACE DETAILS
-    @GET("place/details/json")
+    @GET("place/details/getFood")
     fun getRestaurantDetails(
         @Query("place_id") place_id: String,
         @Query("key") key: String = BuildConfig.MAPS_API_KEY,
     ): Call<RestaurantDetailResponse>
 
     //DISTANCE COUNTER
-    @GET("distancematrix/json")
+    @GET("distancematrix/getFood")
     fun getDistance(
         @Query("destinations") destinations: String,
         @Query("origins") origins: String,

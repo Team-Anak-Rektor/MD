@@ -2,10 +2,9 @@ package com.bintang.bangkitcapstoneproject.network.adhaar
 
 import com.bintang.bangkitcapstoneproject.model.auth.LoginResponse
 import com.bintang.bangkitcapstoneproject.model.auth.RegisterResponse
+import com.bintang.bangkitcapstoneproject.model.food.FoodDetectorResponse
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface AdhaarApiService {
 
@@ -25,4 +24,11 @@ interface AdhaarApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Call<LoginResponse>
+
+    //Food Detector
+    @GET("foods/json")
+    fun getFood (
+        @Header("Authorization") token: String,
+        @Query("label") label: String
+    ): Call<FoodDetectorResponse>
 }
