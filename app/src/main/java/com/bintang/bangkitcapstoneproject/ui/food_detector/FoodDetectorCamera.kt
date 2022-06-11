@@ -7,17 +7,14 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import com.bintang.bangkitcapstoneproject.data.impl.FoodDetectorCameraRepositoryImpl
 import com.bintang.bangkitcapstoneproject.databinding.ActivityFoodDetectorCameraBinding
-import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModel
-import com.bintang.bangkitcapstoneproject.ui.view_model.FoodDetectorCameraViewModelFactory
+
 import com.bintang.bangkitcapstoneproject.utils.createFile
 import android.graphics.BitmapFactory
 import com.bintang.bangkitcapstoneproject.tflite.Classifier
@@ -28,11 +25,6 @@ class FoodDetectorCamera : AppCompatActivity() {
 
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-    private val foodDetectorCameraViewModel: FoodDetectorCameraViewModel by viewModels {
-        FoodDetectorCameraViewModelFactory(
-            FoodDetectorCameraRepositoryImpl()
-        )
-    }
 
     private val mInputSize = 128
     private val mModelPath = "adhaar.tflite"
@@ -45,7 +37,6 @@ class FoodDetectorCamera : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.captureImage.setOnClickListener { takePhoto() }
-        binding.switchCamera.setOnClickListener { switchCamera() }
         binding.searchButton.setOnClickListener { searchButtonAction() }
 
         initClassifier()
@@ -104,11 +95,9 @@ class FoodDetectorCamera : AppCompatActivity() {
                     val bitmap = BitmapFactory.decodeFile(photoFile.path)
                     val result = classifier.recognizeImage(bitmap)
 
-                    Toast.makeText(
-                        this@FoodDetectorCamera,
-                        result.get(0).title,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val intent = Intent(this@FoodDetectorCamera, FoodDetectorText::class.java)
+                    intent.putExtra("label", result[0].title)
+                    startActivity(intent)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -122,12 +111,8 @@ class FoodDetectorCamera : AppCompatActivity() {
         )
     }
 
-    private fun switchCamera() {
-        foodDetectorCameraViewModel.switchCameraOCR()
-    }
-
     private fun searchButtonAction() {
-        val intent = Intent(this@FoodDetectorCamera, FoodValidatorText::class.java)
+        val intent = Intent(this@FoodDetectorCamera, FoodDetectorText::class.java)
         startActivity(intent)
     }
 

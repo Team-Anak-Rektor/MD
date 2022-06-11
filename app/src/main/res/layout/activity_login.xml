@@ -111,21 +111,21 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--BUTTON LOGIN-->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="36dp"
-                android:layout_marginTop="32dp"
-                android:text="Login"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_button_filled"
-                android:alpha="0"
-                tools:alpha="1"
-                app:layout_constraintTop_toBottomOf="@+id/edtl_password" />
+        <!--BUTTON LOGIN-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="36dp"
+            android:layout_marginTop="32dp"
+            android:text="Login"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_button_filled_rounded"
+            android:alpha="0"
+            tools:alpha="1"
+            app:layout_constraintTop_toBottomOf="@+id/edtl_password" />
 
             <!--BUTTON SIGN UP-->
             <androidx.appcompat.widget.AppCompatButton
