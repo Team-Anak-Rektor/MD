@@ -1,8 +1,7 @@
 package com.bintang.bangkitcapstoneproject.domain.repository
 
 import com.bintang.bangkitcapstoneproject.data.utils.FoodDetectorUiResource
-import com.bintang.bangkitcapstoneproject.model.food.FoodDetectorResponse
-import com.bintang.bangkitcapstoneproject.model.food.Result
+import com.bintang.bangkitcapstoneproject.data.model.food.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 
 interface FoodDetectorRepository {

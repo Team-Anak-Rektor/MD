@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.bintang.bangkitcapstoneproject.BuildConfig
 import com.bintang.bangkitcapstoneproject.R
 import com.bintang.bangkitcapstoneproject.databinding.ActivityRestaurantDetailBinding
-import com.bintang.bangkitcapstoneproject.ui.view_model.RestaurantDetailViewModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 class RestaurantDetailActivity : AppCompatActivity() {

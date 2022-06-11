@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bintang.bangkitcapstoneproject.model.auth.RegisterResponse
-import com.bintang.bangkitcapstoneproject.network.adhaar.AdhaarApiConfig
+import com.bintang.bangkitcapstoneproject.data.model.auth.RegisterResponse
+import com.bintang.bangkitcapstoneproject.data.network.adhaar.AdhaarApiConfig
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bintang.bangkitcapstoneproject.model.auth.LoginResponse
-import com.bintang.bangkitcapstoneproject.model.auth.UserData
-import com.bintang.bangkitcapstoneproject.network.adhaar.AdhaarApiConfig
+import com.bintang.bangkitcapstoneproject.data.model.auth.LoginResponse
+import com.bintang.bangkitcapstoneproject.data.network.adhaar.AdhaarApiConfig
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
 import kotlinx.coroutines.launch
 import org.json.JSONObject

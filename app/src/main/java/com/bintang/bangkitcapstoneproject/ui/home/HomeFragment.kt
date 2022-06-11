@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintang.bangkitcapstoneproject.databinding.FragmentHomeBinding
-import com.bintang.bangkitcapstoneproject.model.restaurant.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.data.model.restaurant.NearbySearchResult
 import com.bintang.bangkitcapstoneproject.ui.restaurant_detail.RestaurantDetailActivity
-import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
+import com.bintang.bangkitcapstoneproject.ui.utils.ViewModelFactory
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task

@@ -15,11 +15,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import com.bintang.bangkitcapstoneproject.BasedActivity
+import com.bintang.bangkitcapstoneproject.ui.BasedActivity
 import com.bintang.bangkitcapstoneproject.databinding.ActivityLoginBinding
 import com.bintang.bangkitcapstoneproject.ui.auth.register.RegisterActivity
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
-import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
+import com.bintang.bangkitcapstoneproject.ui.utils.ViewModelFactory
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 

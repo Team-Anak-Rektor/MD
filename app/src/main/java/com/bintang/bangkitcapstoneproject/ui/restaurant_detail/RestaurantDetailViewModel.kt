@@ -1,34 +1,43 @@
-package com.bintang.bangkitcapstoneproject.ui.home
+package com.bintang.bangkitcapstoneproject.ui.restaurant_detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.bintang.bangkitcapstoneproject.domain.repository.RestaurantRepository
 import com.bintang.bangkitcapstoneproject.data.model.restaurant.DistanceMatrixResponse
 import com.bintang.bangkitcapstoneproject.data.model.restaurant.ElementsItem
-import com.bintang.bangkitcapstoneproject.data.model.restaurant.NearbySearchResult
+import com.bintang.bangkitcapstoneproject.data.model.restaurant.RestaurantDetailResponse
+import com.bintang.bangkitcapstoneproject.data.model.restaurant.RestaurantDetailResult
 import com.bintang.bangkitcapstoneproject.data.network.google.GooglePlaceApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel(private val restaurantRepository: RestaurantRepository) : ViewModel() {
-    private val listRestaurant = MutableLiveData<List<NearbySearchResult>>()
+class RestaurantDetailViewModel: ViewModel() {
+    private val data = MutableLiveData<RestaurantDetailResult>()
     private val distance = MutableLiveData<ElementsItem>()
-    var isInitData = true
 
-    fun setIsInitUser(e: Boolean) {
-        isInitData = e
+    fun setPlaceId(placeId: String) {
+        val client = GooglePlaceApiConfig.getApiService().getRestaurantDetails(placeId)
+        client.enqueue(object : Callback<RestaurantDetailResponse>{
+            override fun onResponse(
+                call: Call<RestaurantDetailResponse>,
+                response: Response<RestaurantDetailResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        data.postValue(responseBody.result)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<RestaurantDetailResponse>, t: Throwable) {
+                Log.d("Failur : ", t.message.toString())
+            }
+        })
     }
 
-    fun getListOfRestaurant(keyword: String = "vegetarian", loc: String)
-    : LiveData<PagingData<NearbySearchResult>> {
-        return restaurantRepository.getNearbyRestaurant(keyword, loc).cachedIn(viewModelScope)
-    }
+    fun getData() : LiveData<RestaurantDetailResult> = data
 
     fun setDistance(destination: String, origin: String) {
         val client = GooglePlaceApiConfig.getApiService().getDistance(destination, origin)
@@ -51,5 +60,5 @@ class HomeViewModel(private val restaurantRepository: RestaurantRepository) : Vi
     }
 
     fun getDistance() : LiveData<ElementsItem> = distance
-}
 
+}

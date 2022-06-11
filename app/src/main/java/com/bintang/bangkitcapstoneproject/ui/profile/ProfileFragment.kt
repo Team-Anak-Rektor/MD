@@ -7,17 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bintang.bangkitcapstoneproject.BasedActivity
 import com.bintang.bangkitcapstoneproject.databinding.FragmentProfileBinding
-import com.bintang.bangkitcapstoneproject.model.auth.UserData
 import com.bintang.bangkitcapstoneproject.ui.auth.login.LoginActivity
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
-import com.bintang.bangkitcapstoneproject.utils.ViewModelFactory
+import com.bintang.bangkitcapstoneproject.ui.utils.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 

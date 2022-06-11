@@ -18,7 +18,7 @@
         android:theme="@style/Theme.BangkitCapstoneProject">
 
         <activity
-            android:name=".BasedActivity"
+            android:name=".ui.BasedActivity"
             android:exported="true"
             android:label="@string/title_activity_based" >
             <intent-filter>
@@ -37,13 +37,9 @@
         <activity
             android:name=".ui.food_detector.FoodDetectorCamera"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
           <activity
             android:name=".ui.auth.register.RegisterActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.restaurant_detail.RestaurantDetailActivity"
             android:exported="true" />

@@ -2,9 +2,9 @@ package com.bintang.bangkitcapstoneproject.data.impl
 
 import com.bintang.bangkitcapstoneproject.data.utils.FoodDetectorUiResource
 import com.bintang.bangkitcapstoneproject.domain.repository.FoodDetectorRepository
-import com.bintang.bangkitcapstoneproject.model.food.FoodDetectorResponse
-import com.bintang.bangkitcapstoneproject.model.food.Result
-import com.bintang.bangkitcapstoneproject.network.adhaar.AdhaarApiConfig
+import com.bintang.bangkitcapstoneproject.data.model.food.FoodDetectorResponse
+import com.bintang.bangkitcapstoneproject.data.model.food.Result
+import com.bintang.bangkitcapstoneproject.data.network.adhaar.AdhaarApiConfig
 import com.bintang.bangkitcapstoneproject.utils.SessionPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
