@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +31,8 @@ class FoodDetectorText : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodDetectorTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        layoutConfig()
 
         val extras = intent.extras
         if (extras != null){
@@ -98,6 +102,12 @@ class FoodDetectorText : AppCompatActivity() {
                 viewModel.searchFood(binding.searchBar.query.toString())
             }
         }
+    }
 
+    private fun layoutConfig() {
+        //StatusBar & NavBar Color Config
+        val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
+        windowInsetController?.isAppearanceLightStatusBars = true
+        windowInsetController?.isAppearanceLightNavigationBars = true
     }
 }

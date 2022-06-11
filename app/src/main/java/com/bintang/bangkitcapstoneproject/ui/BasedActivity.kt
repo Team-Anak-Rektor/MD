@@ -73,9 +73,4 @@ class BasedActivity : AppCompatActivity() {
         windowInsetController?.isAppearanceLightStatusBars = true
         windowInsetController?.isAppearanceLightNavigationBars = true
     }
-
-    companion object {
-        const val EXTRA_USER_DATA = "Extra User Data"
-    }
-
 }

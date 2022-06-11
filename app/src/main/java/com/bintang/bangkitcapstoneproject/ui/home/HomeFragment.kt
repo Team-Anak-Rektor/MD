@@ -184,7 +184,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         lastLoc.addOnSuccessListener(requireActivity()) {
             if (it != null) {
                 val userLocation = "${it.latitude},${it.longitude}"
-                getRestaurantList(userLocation)
+                //getRestaurantList(userLocation)
             }
         }
     }

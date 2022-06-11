@@ -44,7 +44,6 @@
             android:name=".ui.restaurant_detail.RestaurantDetailActivity"
             android:exported="true" />
 
-
         <!--        <activity-->
         <!--            android:name=".BasedActivity"-->
         <!--            android:exported="true"-->

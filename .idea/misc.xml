@@ -3,25 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable-v24/bg_button_filled_rounded_top.xml" value="0.121" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.121" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_avatar_border.xml" value="0.121" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_filled.xml" value="0.1215" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_filled_rounded.xml" value="0.1" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_oval_filled.xml" value="0.1215" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_oval_stroke.xml" value="0.1" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/bg_button_stroke.xml" value="0.1" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/home_selector.xml" value="0.1215" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_back.xml" value="0.1215" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_capture.xml" value="0.1215" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_premium.xml" value="0.121" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_price.xml" value="0.1215" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_search.xml" value="0.1215" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/drawable/ic_switch_camera.xml" value="0.1215" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout-v28/item_restaurant_info.xml" value="0.1" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_based.xml" value="0.25" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_detector_camera.xml" value="0.22" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_detector_text.xml" value="0.25" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_food_validator_text.xml" value="0.22" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_main.xml" value="0.18" />
@@ -29,13 +20,12 @@
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/activity_restaurant_detail.xml" value="0.209375" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
+        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/fragment_profile.xml" value="0.10182370820668693" />
         <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/item_restaurant.xml" value="0.10182370820668693" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/item_restaurant_info.xml" value="0.1" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/layout/loading_layout.xml" value="0.10182370820668693" />
-        <entry key="..\:/MobileDev/BangkitCapstoneProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1824074074074074" />
+        <entry key="app/src/main/res/drawable/bg_button_camera_shutter.xml" value="0.1605" />
         <entry key="app/src/main/res/drawable/bg_button_circle.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/bg_button_filled.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/bg_button_filled_rounded.xml" value="0.1605" />
         <entry key="app/src/main/res/drawable/bg_button_oval_filled.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/bg_button_oval_stroke.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/bg_button_stroke.xml" value="0.15" />
@@ -45,22 +35,27 @@
         <entry key="app/src/main/res/drawable/dot_grey.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/food_detector_selector.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1605" />
         <entry key="app/src/main/res/drawable/profile_selector.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-v28/item_restaurant_info.xml" value="0.37552083333333336" />
         <entry key="app/src/main/res/layout/activity_based.xml" value="0.3458333333333333" />
+        <entry key="app/src/main/res/layout/activity_food_detector_camera.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_food_detector_text.xml" value="0.3247747747747748" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.27348066298342544" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3458333333333333" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.3117117117117117" />
         <entry key="app/src/main/res/layout/activity_restaurant_detail.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3458333333333333" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3160493827160494" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.3609375" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_restaurant.xml" value="0.27314814814814814" />
         <entry key="app/src/main/res/layout/item_restaurant_detail.xml" value="0.2796296296296296" />
         <entry key="app/src/main/res/layout/item_restaurant_image.xml" value="0.2796296296296296" />
-        <entry key="app/src/main/res/layout/item_restaurant_info.xml" value="0.2796296296296296" />
+        <entry key="app/src/main/res/layout/item_restaurant_info.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/loading_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/restaurant_item.xml" value="0.375" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.3458333333333333" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

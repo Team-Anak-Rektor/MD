@@ -7,8 +7,8 @@
     <string name="search_text_2">check if the food is healthy</string>
     <string name="back">back</string>
     <string name="search">Search</string>
-    <string name="result_lorem">Result : Lorem</string>
-    <string name="contain">Contain :</string>
+    <string name="result_lorem">Lorem</string>
+    <string name="contain">Ingredients :</string>
     <string name="suitable_for">Suitable For :</string>
     <string name="result_emoticon">result emoticon</string>
     <string name="title_activity_based">BasedActivity</string>
@@ -22,4 +22,5 @@
     <string name="btn_share">Share</string>
     <string name="devider3">|</string>
     <string name="devider2">-</string>
+    <string name="result">Result :</string>
 </resources>

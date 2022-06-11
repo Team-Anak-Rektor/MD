@@ -36,8 +36,9 @@ class FoodDetectorCamera : AppCompatActivity() {
         binding = ActivityFoodDetectorCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.captureImage.setOnClickListener { takePhoto() }
-        binding.searchButton.setOnClickListener { searchButtonAction() }
+        binding.btnBack.setOnClickListener { finish() }
+        binding.cameraShutter.setOnClickListener { takePhoto() }
+        binding.btnFoodSearch.setOnClickListener { searchButtonAction() }
 
         initClassifier()
     }

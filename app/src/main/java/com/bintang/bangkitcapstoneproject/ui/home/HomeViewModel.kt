@@ -17,7 +17,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeViewModel(private val restaurantRepository: RestaurantRepository) : ViewModel() {
-    private val listRestaurant = MutableLiveData<List<NearbySearchResult>>()
     private val distance = MutableLiveData<ElementsItem>()
     var isInitData = true
 
@@ -29,27 +28,5 @@ class HomeViewModel(private val restaurantRepository: RestaurantRepository) : Vi
     : LiveData<PagingData<NearbySearchResult>> {
         return restaurantRepository.getNearbyRestaurant(keyword, loc).cachedIn(viewModelScope)
     }
-
-    fun setDistance(destination: String, origin: String) {
-        val client = GooglePlaceApiConfig.getApiService().getDistance(destination, origin)
-        client.enqueue(object : Callback<DistanceMatrixResponse>{
-            override fun onResponse(
-                call: Call<DistanceMatrixResponse>,
-                response: Response<DistanceMatrixResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        distance.postValue(responseBody.rows[0].elements[0])
-                    }
-                }
-            }
-            override fun onFailure(call: Call<DistanceMatrixResponse>, t: Throwable) {
-                Log.d("Failur : ", t.message.toString())
-            }
-        })
-    }
-
-    fun getDistance() : LiveData<ElementsItem> = distance
 }
 
