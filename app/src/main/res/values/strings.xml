@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BangkitCapstoneProject</string>
+    <string name="app_name">Adhaar</string>
     <string name="capture_image_button">Capture Image Button</string>
     <string name="switch_camera">Switch Camera</string>
     <string name="search_food_text">Type Some Food…</string>

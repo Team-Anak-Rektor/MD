@@ -21,6 +21,7 @@ import com.bintang.bangkitcapstoneproject.ui.utils.ViewModelFactory
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.google.android.material.chip.Chip
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 
@@ -28,15 +29,11 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var viewModel: HomeViewModel
     private val adapter = RestaurantListAdapter()
 
-    private var initData: Boolean? = null
-
-    private val coordinates = mutableListOf<String>()
-    private val distance = mutableListOf<String>()
-    private var asal = ""
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var userLocation: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +63,8 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvRestaurantItem.layoutManager = layoutManager
 
-        setupUserLocation()
+        checkingLocPermission()
+        viewAction()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -135,46 +133,51 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         )
     }
 
-    private fun setupUserLocation() {
+    private fun checkingLocPermission() {
 
         //CHECKING LOCATION PERMISSION
         if (hasLocationPermission()) {
-
-            val locationRequest = LocationRequest.create().apply {
-                interval = 10000
-                fastestInterval = 5000
-                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            }
-
-            val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-            val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
-            val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-            task.addOnSuccessListener(requireActivity()) {
-                binding.root.visibility = View.VISIBLE
-                getUserLocation()
-            }
-
-            task.addOnFailureListener(requireActivity()) { e ->
-                if (e is ResolvableApiException) {
-                    try {
-                        startIntentSenderForResult(
-                            e.resolution.intentSender,
-                            REQUEST_CHECK_SETTINGS,
-                            null,
-                            0,
-                            0,
-                            0,
-                            null
-                        )
-                    } catch (sendEx: IntentSender.SendIntentException) {
-                        // Ignore the error.
-                    }
-                }
-            }
-
+            setUpLocation()
         } else {
             requestLocationPermission()
+        }
+    }
+
+    private fun setUpLocation() {
+
+        val locationRequest = LocationRequest.create().apply {
+            interval = 10000
+            fastestInterval = 5000
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener(requireActivity()) {
+            binding.root.visibility = View.VISIBLE
+            Handler().postDelayed({
+                getUserLocation()
+            }, 2500)
+        }
+
+        task.addOnFailureListener(requireActivity()) { e ->
+            if (e is ResolvableApiException) {
+                try {
+                    startIntentSenderForResult(
+                        e.resolution.intentSender,
+                        REQUEST_CHECK_SETTINGS,
+                        null,
+                        0,
+                        0,
+                        0,
+                        null
+                    )
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
         }
     }
 
@@ -183,14 +186,14 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         val lastLoc = fusedLocationClient.lastLocation
         lastLoc.addOnSuccessListener(requireActivity()) {
             if (it != null) {
-                val userLocation = "${it.latitude},${it.longitude}"
-                //getRestaurantList(userLocation)
+                userLocation = "${it.latitude},${it.longitude}"
+                getRestaurantList(loc = userLocation)
             }
         }
     }
 
-    private fun getRestaurantList(loc: String) {
-        viewModel.getListOfRestaurant(loc = loc).observe(viewLifecycleOwner) {
+    private fun getRestaurantList(loc: String, keyword: String = "vegetarian") {
+        viewModel.getListOfRestaurant(loc = loc, keyword = keyword).observe(viewLifecycleOwner) {
             if (it == null) {
                 Toast.makeText(requireContext(), "Data not found", Toast.LENGTH_SHORT).show()
             } else {
@@ -201,10 +204,7 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
                     override fun onItemClicked(item: NearbySearchResult) {
                         val intent = Intent(requireContext(), RestaurantDetailActivity::class.java)
                         intent.putExtra(RestaurantDetailActivity.EXTRA_PLACE_ID, item.placeId)
-                        intent.putExtra(
-                            RestaurantDetailActivity.EXTRA_USER_LOCATION,
-                            loc
-                        )
+                        intent.putExtra(RestaurantDetailActivity.EXTRA_USER_LOCATION, loc)
                         startActivity(intent)
                     }
                 })
@@ -214,24 +214,43 @@ class HomeFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun viewAction() {
+
         binding.apply {
+
+            filterChips.setOnCheckedChangeListener { group, checkedIds ->
+                val chip: Chip? = group.findViewById(checkedIds)
+
+                chip?.let {
+                    getRestaurantList(userLocation, it.text.toString())
+                }
+            }
+
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (!query.isNullOrEmpty()) {
+                        getRestaurantList(userLocation, query)
+                    }
                     searchView.clearFocus()
                     return false
                 }
 
                 override fun onQueryTextChange(query: String?): Boolean {
                     if (!query.isNullOrEmpty() && !query.isNullOrBlank()) {
-                        // viewModel.setRestaurantList(userLocation!!, query)
+                        //getRestaurantList(query, userLocation)
                     } else {
-//                        viewModel.setRestaurantList(userLocation!!)
+                        //getRestaurantList(loc =  userLocation)
                     }
                     return false
                 }
             })
+
+            btnSearch.setOnClickListener {
+                val keyword = binding.searchView.query.toString()
+                getRestaurantList(userLocation, keyword)
+            }
         }
     }
+
 
     companion object {
         const val PERMISSION_LOCATION_REQUEST_CODE = 1

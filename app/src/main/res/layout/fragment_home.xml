@@ -130,39 +130,16 @@
                         android:scrollbars="none">
 
                         <com.google.android.material.chip.ChipGroup
-                            android:layout_width="match_parent"
+                            android:id="@+id/filter_chips"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            app:chipSpacingHorizontal="8dp"
+                            app:singleLine="true"
                             app:singleSelection="true">
 
                             <com.google.android.material.chip.Chip
                                 style="@style/MyChip"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="all"
-                                android:textColor="@color/my_green"
-                                app:chipStrokeColor="@color/my_green"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                style="@style/MyChip"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="my favorites"
-                                android:textColor="@color/my_green"
-                                app:chipStrokeColor="@color/my_green"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                style="@style/MyChip"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="vegan"
-                                android:textColor="@color/my_green"
-                                app:chipStrokeColor="@color/my_green"
-                                app:chipStrokeWidth="1dp" />
-
-                            <com.google.android.material.chip.Chip
-                                style="@style/MyChip"
+                                android:id="@+id/chip_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="vegetarian"
@@ -172,10 +149,71 @@
 
                             <com.google.android.material.chip.Chip
                                 style="@style/MyChip"
+                                android:id="@+id/chip_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="salad"
+                                android:textColor="@color/my_green"
+                                app:chipStrokeColor="@color/my_green"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/MyChip"
+                                android:id="@+id/chip_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="rujak"
+                                android:textColor="@color/my_green"
+                                app:chipStrokeColor="@color/my_green"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/MyChip"
+                                android:id="@+id/chip_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="gado-gado"
+                                android:textColor="@color/my_green"
+                                app:chipStrokeColor="@color/my_green"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/MyChip"
+                                android:id="@+id/chip_5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="pecel"
+                                android:textColor="@color/my_green"
+                                app:chipStrokeColor="@color/my_green"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/MyChip"
+                                android:id="@+id/chip_6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="jus buah"
+                                android:textColor="@color/my_green"
+                                app:chipStrokeColor="@color/my_green"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/MyChip"
+                                android:id="@+id/chip_7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="karedok"
+                                android:textColor="@color/my_green"
+                                app:chipStrokeColor="@color/my_green"
+                                app:chipStrokeWidth="1dp" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/MyChip"
+                                android:id="@+id/chip_8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="12dp"
-                                android:text="others"
+                                android:text="smoothies"
                                 android:textColor="@color/my_green"
                                 app:chipStrokeColor="@color/my_green"
                                 app:chipStrokeWidth="1dp" />

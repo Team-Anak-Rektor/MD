@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/drawable/dot_grey.xml" value="0.133" />
         <entry key="app/src/main/res/drawable/food_detector_selector.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/home_selector.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/ic_app.xml" value="0.154" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1605" />
         <entry key="app/src/main/res/drawable/profile_selector.xml" value="0.1" />
         <entry key="app/src/main/res/layout-v28/item_restaurant_info.xml" value="0.37552083333333336" />

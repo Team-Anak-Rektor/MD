@@ -42,15 +42,16 @@ class FoodDetectorCamera : AppCompatActivity(), EasyPermissions.PermissionCallba
 
         //CHECKING IS THE APP HAS PERMISSION TO ACCESS CAMERA
         if (hasCameraPermission()) {
-
+            initClassifier()
             binding.apply {
                 btnBack.setOnClickListener { finish() }
                 cameraShutter.setOnClickListener { takePhoto() }
                 btnFoodSearch.setOnClickListener { searchButtonAction() }
             }
-            initClassifier()
 
         } else {
+            //IF THE APPLICATIONS DOESN'T HAVE PERMISSION,
+            //THE APP WILL MAKE A PERMISSION REQUEST TO ACCESS THE CAMERA
             requestCameraPermission()
         }
 

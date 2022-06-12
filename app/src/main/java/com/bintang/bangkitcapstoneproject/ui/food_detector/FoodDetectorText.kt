@@ -1,13 +1,11 @@
 package com.bintang.bangkitcapstoneproject.ui.food_detector
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -73,7 +71,7 @@ class FoodDetectorText : AppCompatActivity() {
         lifecycleScope.launch{
             repeatOnLifecycle(Lifecycle.State.CREATED){
                 viewModel.foodDetectorResultUIState.collect{
-                    val searchResultText = "Result : ${it.foodName}"
+                    val searchResultText = it.foodName
                     binding.searchResult.text = searchResultText
 
                     var ingredientResultText = ""

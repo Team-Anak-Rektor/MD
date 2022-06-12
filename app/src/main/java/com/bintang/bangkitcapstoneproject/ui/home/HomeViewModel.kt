@@ -24,7 +24,7 @@ class HomeViewModel(private val restaurantRepository: RestaurantRepository) : Vi
         isInitData = e
     }
 
-    fun getListOfRestaurant(keyword: String = "vegetarian", loc: String)
+    fun getListOfRestaurant(keyword: String, loc: String)
     : LiveData<PagingData<NearbySearchResult>> {
         return restaurantRepository.getNearbyRestaurant(keyword, loc).cachedIn(viewModelScope)
     }
